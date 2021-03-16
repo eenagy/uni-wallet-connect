@@ -1,5 +1,5 @@
 {
-  "name": "with-styled-components",
+  "name": "uni-wallet",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -7,14 +7,26 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-is": "^16.8.0",
-    "styled-components": "^5.0.0"
+    "@ethersproject/experimental": "5.0.10",
+    "@uniswap/sdk": "3.0.3",
+    "@web3-react/core": "6.1.9",
+    "@web3-react/fortmatic-connector": "6.1.6",
+    "@web3-react/injected-connector": "6.0.7",
+    "@web3-react/portis-connector": "6.1.9",
+    "@web3-react/walletconnect-connector": "6.1.9",
+    "@web3-react/walletlink-connector": "6.1.9",
+    "next": "10.0.9",
+    "react": "17.0.1",
+    "react-device-detect": "1.17.0",
+    "react-dom": "17.0.1",
+    "react-is": "17.0.1",
+    "styled-components": "5.2.1"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.8.0"
+    "@types/node": "14.14.35",
+    "@types/styled-components": "5.1.9",
+    "babel-plugin-styled-components": "1.12.0",
+    "typescript": "4.2.3"
   },
   "license": "MIT"
 }
