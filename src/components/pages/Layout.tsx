@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Web3ReactManager } from './Web3ReactManager'
+import { Header } from './Header'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -41,7 +42,9 @@ const Marginer = styled.div`
 export function Layout({ children }) {
   return (
     <AppWrapper>
-      <HeaderWrapper>{/* <Header /> */}</HeaderWrapper>
+      <HeaderWrapper>
+        <Header />
+      </HeaderWrapper>
       <BodyWrapper>
         <Web3ReactManager>{children}</Web3ReactManager>
         <Marginer />
