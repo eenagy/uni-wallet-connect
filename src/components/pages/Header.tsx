@@ -20,7 +20,7 @@ const Card = styled(Box)<{ width?: string; padding?: string; border?: string; bo
 
 export const YellowCard = styled(Card)`
   background-color: rgba(243, 132, 30, 0.05);
-  // color: ${({ theme }) => theme.yellow2};
+  color: ${({ theme }) => theme.yellow2};
   font-weight: 500;
 `
 
@@ -55,10 +55,10 @@ const HeaderElement = styled.div`
     margin-left: 8px;
   }
 
-//   ${({ theme }) => theme.mediaWidth.upToMedium`
-//    flex-direction: row-reverse;
-//     align-items: center;
-//   `};
+   ${({ theme }) => theme.mediaWidth.upToMedium`
+    flex-direction: row-reverse;
+     align-items: center;
+   `};
 `
 
 const AccountElement = styled.div<{ active: boolean }>`
@@ -77,22 +77,22 @@ const AccountElement = styled.div<{ active: boolean }>`
 `
 
 const HideSmall = styled.span`
-//   ${({ theme }) => theme.mediaWidth.upToSmall`
-//     display: none;
-//   `};
+   ${({ theme }) => theme.mediaWidth.upToSmall`
+     display: none;
+   `};
 `
 
 const NetworkCard = styled(YellowCard)`
   border-radius: 12px;
   padding: 8px 12px;
-//   ${({ theme }) => theme.mediaWidth.upToSmall`
-//     margin: 0;
-//     margin-right: 0.5rem;
-//     width: initial;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//     flex-shrink: 1;
-//   `};
+   ${({ theme }) => theme.mediaWidth.upToSmall`
+     margin: 0;
+     margin-right: 0.5rem;
+     width: initial;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     flex-shrink: 1;
+   `};
 `
 
 
@@ -105,7 +105,7 @@ export const StyledMenuButton = styled.button`
   margin: 0;
   padding: 0;
   height: 35px;
- // background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.bg3};
   margin-left: 8px;
   padding: 0.15rem 0.5rem;
   border-radius: 0.5rem;
@@ -114,21 +114,21 @@ export const StyledMenuButton = styled.button`
   :focus {
     cursor: pointer;
     outline: none;
-   // background-color: ${({ theme }) => theme.bg4};
+    background-color: ${({ theme }) => theme.bg4};
   }
 
   svg {
     margin-top: 2px;
   }
   > * {
-    // stroke: ${({ theme }) => theme.text1};
+     stroke: ${({ theme }) => theme.text1};
   }
 `
 
 const BalanceText = styled(Text)`
-//   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-//     display: none;
-//   `};
+   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+     display: none;
+   `};
 `
 
 const NETWORK_LABELS: { [t: number]: string } = {

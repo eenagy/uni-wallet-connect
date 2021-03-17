@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { network } from '../../connectors'
 import { useEagerConnect, useInactiveListener } from '../../hooks'
 import { NetworkContextName } from '../../constants'
-import Loader from '../Loader'
+import { Loader } from '../common/Loader'
 
 const MessageWrapper = styled.div`
   display: flex;

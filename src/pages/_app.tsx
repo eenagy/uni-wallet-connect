@@ -1,23 +1,8 @@
-import { StrictMode, useMemo, Component } from 'react'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { StrictMode, Component } from 'react'
+import { ThemeProvider, ThemedGlobalStyle } from '../theme'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from '../utils/getLibrary'
 import { NetworkContextName } from '../constants'
-import { useWeb3React } from '@web3-react/core'
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-}
 
 class ErrorBoundaryWeb3ProviderNetwork extends Component {
   constructor(props) {
@@ -25,7 +10,7 @@ class ErrorBoundaryWeb3ProviderNetwork extends Component {
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
@@ -46,10 +31,10 @@ class ErrorBoundaryWeb3ProviderNetwork extends Component {
 export default function App({ Component, pageProps }) {
   return (
     <StrictMode>
-      <GlobalStyle />
       <Web3ReactProvider getLibrary={getLibrary}>
         <ErrorBoundaryWeb3ProviderNetwork>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider>
+            <ThemedGlobalStyle />
             <Component {...pageProps} />
           </ThemeProvider>
         </ErrorBoundaryWeb3ProviderNetwork>
