@@ -143,7 +143,6 @@ const NETWORK_LABELS: { [t: number]: string } = {
 export function Header() {
   const { account, chainId } = useActiveWeb3React()
 
-  console.log('account', account)
   //TODO const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const userEthBalance = {
     toSignificant: (_: any) => "0.33"

@@ -7,18 +7,14 @@ import { AutoRow } from '../common/Row'
 import { Copy } from './Copy'
 import { Transaction } from './Transaction'
 import { SUPPORTED_WALLETS } from '../../constants'
-import Close from '../../assets/images/x.svg'
+import Close from '../../../public/assets/images/x.svg'
 import { getEtherscanLink } from '../../utils'
 import { injected, walletconnect, walletlink, fortmatic, portis } from '../../connectors'
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
-import PortisIcon from '../../assets/images/portisIcon.png'
 import { Identicon } from '../common/Identicon'
 import { ButtonSecondary } from '../common/Button'
 import { ExternalLink as LinkIcon } from 'react-feather'
 import { ExternalLink, LinkStyledButton, TYPE } from '../../theme'
-
+import Image from 'next/image'
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -216,12 +212,7 @@ interface AccountDetailsProps {
   ENSName?: string
   openOptions: () => void
 }
-// TODO
-function useDispatch(){
-    return function(){
 
-    }
-}
 export function AccountDetails({
   toggleWalletModal,
   pendingTransactions,
@@ -231,7 +222,6 @@ export function AccountDetails({
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
-  const dispatch = useDispatch()
 
   function formatConnectorName() {
     const { ethereum } = window || {}
@@ -255,26 +245,26 @@ export function AccountDetails({
     } else if (connector === walletconnect) {
       return (
         <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={'wallet connect logo'} />
+          <Image src={'/assets/images/walletConnectIcon.svg'} alt={'wallet connect logo'} layout="fill"/>
         </IconWrapper>
       )
     } else if (connector === walletlink) {
       return (
         <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
+          <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={'coinbase wallet logo'} layout="fill"/>
         </IconWrapper>
       )
     } else if (connector === fortmatic) {
       return (
         <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={'fortmatic logo'} />
+          <Image src={'/assets/images/fortmaticIcon.png'} alt={'fortmatic logo'} layout="fill"/>
         </IconWrapper>
       )
     } else if (connector === portis) {
       return (
         <>
           <IconWrapper size={16}>
-            <img src={PortisIcon} alt={'portis logo'} />
+            <Image src={'/assets/images/portisIcon.png'} alt={'portis logo'} layout="fill"/>
             <MainWalletAction
               onClick={() => {
                 portis.portis.showPortis()
@@ -290,8 +280,8 @@ export function AccountDetails({
   }
 
   const clearAllTransactionsCallback = useCallback(() => {
-    if (chainId) dispatch(clearAllTransactions({ chainId }))
-  }, [dispatch, chainId])
+    if (chainId) clearAllTransactions({ chainId })
+  }, [chainId])
 
   return (
     <>

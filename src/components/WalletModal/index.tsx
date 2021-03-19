@@ -1,18 +1,17 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { isMobile } from 'react-device-detect'
 import styled from 'styled-components'
-import MetamaskIcon from '../../assets/images/metamask.png'
-import Close from '../../assets/images/x.svg'
+import Close from '../../../public/assets/images/x.svg'
 import { fortmatic, injected, portis } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 import { SUPPORTED_WALLETS } from '../../constants'
 import usePrevious from '../../hooks/usePrevious'
-import { ApplicationModal, useModalOpen, useWalletModalToggle } from '../../state/application/hooks'
 import { ExternalLink } from '../../theme'
 import { AccountDetails } from './AccountDetails'
+import { ApplicationState, ApplicationActions } from '../../state/state.provider'
 
 import { Modal } from '../common/Modal'
 import { Option } from './Option'
@@ -133,34 +132,34 @@ export function WalletModal({
 
   const [pendingError, setPendingError] = useState<boolean>()
 
-  const walletModalOpen = useModalOpen(ApplicationModal.WALLET)
-  const toggleWalletModal = useWalletModalToggle()
+  const { modalOpen } = useContext(ApplicationState)
+  const { toggleModal } = useContext(ApplicationActions)
 
   const previousAccount = usePrevious(account)
 
   // close on connection, when logged out before
   useEffect(() => {
-    if (account && !previousAccount && walletModalOpen) {
-      toggleWalletModal()
+    if (account && !previousAccount && modalOpen) {
+      toggleModal()
     }
-  }, [account, previousAccount, toggleWalletModal, walletModalOpen])
+  }, [account, previousAccount, toggleModal, modalOpen])
 
   // always reset to account view
   useEffect(() => {
-    if (walletModalOpen) {
+    if (modalOpen) {
       setPendingError(false)
       setWalletView(WALLET_VIEWS.ACCOUNT)
     }
-  }, [walletModalOpen])
+  }, [modalOpen])
 
   // close modal when a connection is successful
   const activePrevious = usePrevious(active)
   const connectorPrevious = usePrevious(connector)
   useEffect(() => {
-    if (walletModalOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
+    if (modalOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
       setWalletView(WALLET_VIEWS.ACCOUNT)
     }
-  }, [setWalletView, active, error, connector, walletModalOpen, activePrevious, connectorPrevious])
+  }, [setWalletView, active, error, connector, modalOpen, activePrevious, connectorPrevious])
 
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     let name = ''
@@ -192,9 +191,9 @@ export function WalletModal({
   // close wallet modal if fortmatic modal is active
   useEffect(() => {
     fortmatic.on(OVERLAY_READY, () => {
-      toggleWalletModal()
+      toggleModal()
     })
-  }, [toggleWalletModal])
+  }, [toggleModal])
 
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
@@ -221,7 +220,7 @@ export function WalletModal({
               link={option.href}
               header={option.name}
               subheader={null}
-              icon={'../../assets/images/' + option.iconName}
+              icon={'/assets/images/' + option.iconName}
             />
           )
         }
@@ -241,7 +240,7 @@ export function WalletModal({
                 header={'Install Metamask'}
                 subheader={null}
                 link={'https://metamask.io/'}
-                icon={MetamaskIcon}
+                icon={"/assets/images/metamask.png"}
               />
             )
           } else {
@@ -275,7 +274,7 @@ export function WalletModal({
             link={option.href}
             header={option.name}
             subheader={null} //use option.descriptio to bring back multi-line
-            icon={'../../assets/images/' + option.iconName}
+            icon={'/assets/images/' + option.iconName}
           />
         )
       )
@@ -286,7 +285,7 @@ export function WalletModal({
     if (error) {
       return (
         <UpperSection>
-          <CloseIcon onClick={toggleWalletModal}>
+          <CloseIcon onClick={toggleModal}>
             <CloseColor />
           </CloseIcon>
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
@@ -303,7 +302,7 @@ export function WalletModal({
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
-          toggleWalletModal={toggleWalletModal}
+          toggleWalletModal={toggleModal}
           pendingTransactions={pendingTransactions}
           confirmedTransactions={confirmedTransactions}
           ENSName={ENSName}
@@ -313,7 +312,7 @@ export function WalletModal({
     }
     return (
       <UpperSection>
-        <CloseIcon onClick={toggleWalletModal}>
+        <CloseIcon onClick={toggleModal}>
           <CloseColor />
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
@@ -355,7 +354,7 @@ export function WalletModal({
   }
 
   return (
-    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} minHeight={false} maxHeight={90}>
+    <Modal isOpen={modalOpen} onDismiss={toggleModal} minHeight={false} maxHeight={90}>
       <Wrapper>{getModalContent()}</Wrapper>
     </Modal>
   )

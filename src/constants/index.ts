@@ -1,4 +1,3 @@
-// TODO not sure why rename needed
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 

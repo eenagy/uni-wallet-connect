@@ -1,6 +1,4 @@
-const withImages = require('next-images')
-module.exports = withImages({
-  fileExtensions: ["jpg", "jpeg", "png", "gif"],
+module.exports = {
   webpack(config, options) {
     config.module.rules.push({
         test: /\.svg$/,
@@ -9,4 +7,4 @@ module.exports = withImages({
   
       return config;
   }
-})
+}

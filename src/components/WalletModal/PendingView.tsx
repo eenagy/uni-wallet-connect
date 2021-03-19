@@ -120,7 +120,7 @@ export function PendingView({
               color={option.color}
               header={option.name}
               subheader={option.description}
-              icon={'../../assets/images/' + option.iconName}
+              icon={'/assets/images/' + option.iconName}
             />
           )
         }

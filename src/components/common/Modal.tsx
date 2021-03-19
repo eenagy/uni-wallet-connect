@@ -126,7 +126,8 @@ export function Modal({
                 {...(isMobile
                   ? {
                       ...bind(),
-                      style: { transform: y.interpolate(y => `translateY(${y > 0 ? y : 0}px)`) }
+                      // @ts-ignore
+                      style: { transform: y.interpolate((y) => `translateY(${y > 0 ? y : 0}px)`) }
                     }
                   : {})}
                 aria-label="dialog content"

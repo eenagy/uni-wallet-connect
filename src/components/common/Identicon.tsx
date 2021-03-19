@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React  from 'react'
 import { useActiveWeb3React } from '../../hooks'
-
+import { Jazzicon } from '@ukstv/jazzicon-react';
 import styled from 'styled-components'
 
-import dynamic from 'next/dynamic'
-// @ts-ignore
-const Jazzicon = dynamic(() => import('jazzicon'), { ssr: false })
+
 const StyledIdenticonContainer = styled.div`
   height: 1rem;
   width: 1rem;
@@ -14,17 +12,12 @@ const StyledIdenticonContainer = styled.div`
 `
 
 export function Identicon() {
-  const ref = useRef<HTMLDivElement>()
 
   const { account } = useActiveWeb3React()
 
-  useEffect(() => {
-    if (account && ref.current) {
-      ref.current.innerHTML = ''
-      ref.current.appendChild(Jazzicon(16, parseInt(account.slice(2, 10), 16)))
-    }
-  }, [account])
-
+  const seed = account ? parseInt(account.slice(2, 10), 16).toString(): ""
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
-  return <StyledIdenticonContainer ref={ref as any} />
+  return <StyledIdenticonContainer >
+    <Jazzicon address={seed}/>
+  </StyledIdenticonContainer>
 }

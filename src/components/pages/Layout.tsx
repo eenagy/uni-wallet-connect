@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Web3ReactManager } from './Web3ReactManager'
 import { Header } from './Header'
+import { ApplicationProvider } from '../../state/state.provider'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -27,10 +28,10 @@ const BodyWrapper = styled.div`
   overflow-x: hidden;
   z-index: 10;
 
-  // ${({ theme }) => theme.mediaWidth.upToSmall`
-  //   padding: 16px;
-  //   padding-top: 2rem;
-  // `};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    padding: 16px;
+    padding-top: 2rem;
+  `};
 
   z-index: 1;
 `
@@ -42,13 +43,15 @@ const Marginer = styled.div`
 export function Layout({ children }) {
   return (
     <AppWrapper>
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
-      <BodyWrapper>
-        <Web3ReactManager>{children}</Web3ReactManager>
-        <Marginer />
-      </BodyWrapper>
+      <ApplicationProvider>
+        <HeaderWrapper>
+          <Header />
+        </HeaderWrapper>
+        <BodyWrapper>
+          <Web3ReactManager>{children}</Web3ReactManager>
+          <Marginer />
+        </BodyWrapper>
+      </ApplicationProvider>
     </AppWrapper>
   )
 }

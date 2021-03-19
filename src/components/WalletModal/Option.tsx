@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ExternalLink } from '../../theme'
+import Image from 'next/image'
 
 const InfoCard = styled.button<{ active?: boolean }>`
   background-color: ${({ theme, active }) => (active ? theme.bg3 : theme.bg2)};
@@ -128,7 +129,7 @@ export function Option({
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>
       <IconWrapper size={size}>
-        <img src={icon} alt={'Icon'} />
+        <Image src={icon} alt={'Icon'} width="24px" height="24px"/>
       </IconWrapper>
     </OptionCardClickable>
   )
