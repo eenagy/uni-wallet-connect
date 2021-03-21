@@ -1,11 +1,25 @@
+import { ChainId } from '@uniswap/sdk'
 import React, { createContext, useMemo, ReactNode, useReducer } from 'react'
 
 interface Props {
   children: ReactNode
 }
 interface ApplicationState {
-  modalOpen: boolean
-  error: string
+  application: {
+    modalOpen: boolean
+    blockNumber: { readonly [chainId: number]: number }
+  }
+  multicall: {
+    callResults: {
+      [chainId: number]: {
+        [callKey: string]: {
+          data?: string | null
+          blockNumber?: number
+          fetchingBlockNumber?: number
+        }
+      }
+    }
+  }
 }
 type ApplicationAction =
   | {
@@ -18,11 +32,17 @@ type ApplicationAction =
       }
     }
 const stateInitialValue: ApplicationState = {
-  modalOpen: false,
-  error: '',
+  application: {
+    modalOpen: false,
+    blockNumber: {}
+  },
+  multicall: { callResults: {} },
 }
+interface ListenerProps {chainId: ChainId | undefined, calls : any, options: any}
 const actionsIntialValue = {
   toggleModal: () => {},
+  addMulticallListeners: (_: ListenerProps) => {},
+  removeMulticallListeners: (_:ListenerProps) => {},
 }
 
 export const Web3StatusState = createContext(stateInitialValue)
@@ -35,17 +55,17 @@ export const Web3StatusProvider = ({ children }: Props) => {
         case 'TOGGLE_MODAL': {
           return {
             ...state,
-            modalOpen: !state.modalOpen,
+            application: {
+              ...state.application,
+              modalOpen: !state.application.modalOpen,
+            },
           }
         }
         default:
           return state
       }
     },
-    {
-      modalOpen: false,
-      error: '',
-    }
+    {...stateInitialValue}
   )
 
   // Actions to components
@@ -54,6 +74,9 @@ export const Web3StatusProvider = ({ children }: Props) => {
       toggleModal: () => {
         dispatch({ type: 'TOGGLE_MODAL' })
       },
+      // TODO
+      addMulticallListeners: () => {},
+      removeMulticallListeners: () => {}
     }
   }, [])
 

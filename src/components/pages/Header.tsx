@@ -1,7 +1,7 @@
 import React from 'react'
 import { NETWORK_LABELS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
-// import { useETHBalances } from '../../state/wallet/hooks'
+import { useETHBalances } from '../../hooks/useEthBalances'
 import { Web3Status } from '../Web3Status/Web3Status'
 import {
   HeaderFrame,
@@ -13,13 +13,14 @@ import {
   BalanceText,
 } from './Header.styles'
 
+// TODO pooling on app start
+
 export function Header() {
   const { account, chainId } = useActiveWeb3React()
 
-  //TODO const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-  const userEthBalance = {
-    toSignificant: (_: any) => '0.33',
-  }
+  // TODO this is not working yet, because of missing polling
+  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
+
   return (
     <HeaderFrame>
       <HeaderControls>

@@ -29,7 +29,7 @@ export function WalletModal({ pendingTransactions, confirmedTransactions, ENSNam
 
   const [pendingError, setPendingError] = useState<boolean>()
 
-  const { modalOpen } = useContext(Web3StatusState)
+  const { application: {modalOpen }} = useContext(Web3StatusState)
   const { toggleModal } = useContext(Web3StatusActions)
 
   const previousAccount = usePrevious(account)
