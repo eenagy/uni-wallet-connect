@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const NetworkContextName = 'NETWORK2';","map":{"version":3,"sources":["/Users/admin/workspace/smart_contracts/uni-wallet/src/constants/index.ts"],"names":["NetworkContextName"],"mappings":"AAAA,OAAO,MAAMA,kBAAkB,GAAG,UAA3B","sourcesContent":["export const NetworkContextName = 'NETWORK2'\n"]},"metadata":{},"sourceType":"module"}
