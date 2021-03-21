@@ -197,6 +197,7 @@ export function WalletModal({
 
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
+    // @ts-ignore
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key]
@@ -206,7 +207,7 @@ export function WalletModal({
         if (option.connector === portis) {
           return null
         }
-
+        // @ts-ignore
         if (!window.web3 && !window.ethereum && option.mobile) {
           return (
             <Option
@@ -230,6 +231,7 @@ export function WalletModal({
       // overwrite injected when needed
       if (option.connector === injected) {
         // don't show injected if there's no injected provider
+        // @ts-ignore
         if (!(window.web3 || window.ethereum)) {
           if (option.name === 'MetaMask') {
             return (

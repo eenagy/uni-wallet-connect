@@ -224,7 +224,8 @@ export function AccountDetails({
   const theme = useContext(ThemeContext)
 
   function formatConnectorName() {
-    const { ethereum } = window || {}
+    // @ts-ignore
+    const { ethereum } = window
     const isMetaMask = !!(ethereum && ethereum.isMetaMask)
     const name = Object.keys(SUPPORTED_WALLETS)
       .filter(
@@ -280,6 +281,7 @@ export function AccountDetails({
   }
 
   const clearAllTransactionsCallback = useCallback(() => {
+    //@ts-ignore
     if (chainId) clearAllTransactions({ chainId })
   }, [chainId])
 
