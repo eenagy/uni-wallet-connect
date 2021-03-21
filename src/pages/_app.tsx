@@ -4,6 +4,7 @@ import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from '../utils/getLibrary'
 import { NetworkContextName } from '../constants'
 
+// TODO fix this stupidity, though it works
 class ErrorBoundaryWeb3ProviderNetwork extends Component {
   constructor(props) {
     super(props)
