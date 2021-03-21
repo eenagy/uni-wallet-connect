@@ -1,9 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
-import { ExternalLink } from '../../theme'
-import Image from 'next/image'
 
-const InfoCard = styled.button<{ active?: boolean }>`
+export const InfoCard = styled.button<{ active?: boolean }>`
   background-color: ${({ theme, active }) => (active ? theme.bg3 : theme.bg2)};
   padding: 1rem;
   outline: none;
@@ -16,7 +13,7 @@ const InfoCard = styled.button<{ active?: boolean }>`
   border-color: ${({ theme, active }) => (active ? 'transparent' : theme.bg3)};
 `
 
-const OptionCard = styled(InfoCard as any)`
+export const OptionCard = styled(InfoCard as any)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -25,13 +22,13 @@ const OptionCard = styled(InfoCard as any)`
   padding: 1rem;
 `
 
-const OptionCardLeft = styled.div`
+export const OptionCardLeft = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   justify-content: center;
   height: 100%;
 `
 
-const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
+export const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
   margin-top: 0;
   &:hover {
     cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
@@ -40,7 +37,7 @@ const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `
 
-const GreenCircle = styled.div`
+export const GreenCircle = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: center;
   align-items: center;
@@ -54,27 +51,27 @@ const GreenCircle = styled.div`
   }
 `
 
-const CircleWrapper = styled.div`
+export const CircleWrapper = styled.div`
   color: ${({ theme }) => theme.green1};
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
-const HeaderText = styled.div`
+export const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : ({ theme }) => theme.text1)};
   font-size: 1rem;
   font-weight: 500;
 `
 
-const SubHeader = styled.div`
+export const SubHeader = styled.div`
   color: ${({ theme }) => theme.text1};
   margin-top: 10px;
   font-size: 12px;
 `
 
-const IconWrapper = styled.div<{ size?: number | null }>`
+export const IconWrapper = styled.div<{ size?: number | null }>`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
   justify-content: center;
@@ -87,55 +84,3 @@ const IconWrapper = styled.div<{ size?: number | null }>`
     align-items: flex-end;
   `};
 `
-
-export function Option({
-  link = null,
-  clickable = true,
-  size,
-  onClick = null,
-  color,
-  header,
-  subheader = null,
-  icon,
-  active = false,
-  id
-}: {
-  link?: string | null
-  clickable?: boolean
-  size?: number | null
-  onClick?: null | (() => void)
-  color: string
-  header: React.ReactNode
-  subheader: React.ReactNode | null
-  icon: string
-  active?: boolean
-  id: string
-}) {
-  const content = (
-    <OptionCardClickable id={id} onClick={onClick} clickable={clickable && !active} active={active}>
-      <OptionCardLeft>
-        <HeaderText color={color}>
-          {active ? (
-            <CircleWrapper>
-              <GreenCircle>
-                <div />
-              </GreenCircle>
-            </CircleWrapper>
-          ) : (
-            ''
-          )}
-          {header}
-        </HeaderText>
-        {subheader && <SubHeader>{subheader}</SubHeader>}
-      </OptionCardLeft>
-      <IconWrapper size={size}>
-        <Image src={icon} alt={'Icon'} width="24px" height="24px"/>
-      </IconWrapper>
-    </OptionCardClickable>
-  )
-  if (link) {
-    return <ExternalLink href={link}>{content}</ExternalLink>
-  }
-
-  return content
-}

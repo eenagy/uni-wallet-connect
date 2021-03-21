@@ -1,5 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { ChainId } from '@uniswap/sdk'
+import { TransactionDetails } from '../state/transactions/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -48,4 +49,9 @@ export function getEtherscanLink(
       return `${prefix}/address/${data}`
     }
   }
+}
+
+// we want the latest one to come first, so return negative if a is after b
+export function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
+  return b.addedTime - a.addedTime
 }
