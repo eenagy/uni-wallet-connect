@@ -1,4 +1,4 @@
-import { useActiveWeb3React } from '../../hooks'
+import { useActiveWeb3React } from '../../components/Web3Status/hooks/connect'
 
 export interface SerializableTransactionReceipt {
   to: string

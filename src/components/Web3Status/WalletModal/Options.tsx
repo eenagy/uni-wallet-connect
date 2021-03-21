@@ -1,7 +1,7 @@
 import { Option } from './Option'
 import { isMobile } from 'react-device-detect'
-import { injected, portis } from '../../../connectors'
-import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../../../constants'
+import { injected, portis } from '../connectors'
+import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../constants'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 interface Props{

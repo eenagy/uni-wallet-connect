@@ -1,10 +1,10 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import React, { useMemo, useContext } from 'react'
-import { NetworkContextName } from '../../constants'
-import { useENSName } from '../../hooks/useENSName'
+import { NetworkContextName } from './constants'
+import { useENSName } from './hooks'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { shortenAddress, newTransactionsFirst } from '../../utils'
-import { Web3StatusActions } from '../../state/Web3Status.provider'
+import { Web3StatusActions } from './Web3Status.provider'
 
 import {
   Web3StatusConnected,
@@ -12,11 +12,11 @@ import {
   Text,
   NetworkIcon,
   Web3StatusConnect,
-} from './Web3Status.styles'
+} from './index.styles'
 import { Loader } from '../common/Loader'
 import { RowBetween } from '../common/Row'
 import { WalletModal } from './WalletModal'
-import { StatusIcon } from '../common/StatusIcon'
+import { StatusIcon } from './StatusIcon'
 
 
 export function Web3Status() {

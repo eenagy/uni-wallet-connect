@@ -12,7 +12,7 @@ import {
   Blurb,
 } from './index.styles'
 import { UnsupportedChainIdError } from '@web3-react/core'
-import { WALLET_VIEWS } from '../../../constants'
+import { WALLET_VIEWS } from '../constants'
 import { Options } from './Options'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 

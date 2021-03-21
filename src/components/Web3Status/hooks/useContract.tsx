@@ -1,12 +1,12 @@
-import { useActiveWeb3React } from './index'
+import { useActiveWeb3React } from './connect'
 import { Contract } from '@ethersproject/contracts'
-import { getContract } from '../utils'
+import { getContract } from '../../../utils'
 import { useContext, useMemo, useEffect } from 'react'
 import { MULTICALL_NETWORKS, MULTICALL_ABI } from '../constants/multicall'
 import { BigNumber } from '@ethersproject/bignumber'
 import { Interface, FunctionFragment } from '@ethersproject/abi'
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
-import { Web3StatusState, Web3StatusActions } from '../state/Web3Status.provider'
+import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
 
 type MethodArg = string | number | BigNumber
 type OptionalMethodInputs = Array<MethodArg | MethodArg[] | undefined> | undefined
@@ -185,7 +185,7 @@ export function useBlockNumber(): number | undefined {
 
 // Call a contract on different chains, but same function
 // with different inputs
-// returns the state of callstate
+// returns the state of each calls with relavant data/error
 export function useSingleContractMultipleData(
   contract: Contract | null | undefined,
   methodName: string,

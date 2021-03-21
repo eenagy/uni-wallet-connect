@@ -1,6 +1,6 @@
 import React from 'react'
 import { CheckCircle, Triangle } from 'react-feather'
-import { useActiveWeb3React } from '../../../hooks'
+import { useActiveWeb3React } from '../hooks/connect'
 import { getEtherscanLink } from '../../../utils'
 import { useAllTransactions } from '../../../state/transactions/hooks'
 import { RowFixed } from '../../common/Row'
