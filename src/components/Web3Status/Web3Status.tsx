@@ -4,7 +4,7 @@ import { NetworkContextName } from '../../constants'
 import { useENSName } from '../../hooks/useENSName'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { shortenAddress, newTransactionsFirst } from '../../utils'
-import { ApplicationActions } from '../../state/state.provider'
+import { Web3StatusActions } from '../../state/Web3Status.provider'
 
 import {
   Web3StatusConnected,
@@ -24,7 +24,7 @@ export function Web3Status() {
   const contextNetwork = useWeb3React(NetworkContextName)
 
   const { ENSName } = useENSName(account ?? undefined)
-  const { toggleModal } = useContext(ApplicationActions)
+  const { toggleModal } = useContext(Web3StatusActions)
 
   const allTransactions = useAllTransactions()
 

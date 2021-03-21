@@ -1,7 +1,6 @@
-import styled  from 'styled-components'
-import Close from '../../../../public/assets/images/x.svg'
+import styled from 'styled-components'
+import { X as Close } from 'react-feather'
 import { ExternalLink } from '../../../theme'
-
 
 export const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -147,8 +146,6 @@ export const WalletName = styled.div`
   color: ${({ theme }) => theme.text3};
 `
 
-
 export const TransactionListWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
 `
-

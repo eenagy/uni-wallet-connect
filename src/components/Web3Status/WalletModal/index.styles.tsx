@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Close from '../../../../public/assets/images/x.svg'
+import { X as Close } from 'react-feather'
 
 export const CloseIcon = styled.div`
   position: absolute;

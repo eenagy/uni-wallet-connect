@@ -1,13 +1,13 @@
 import React from 'react'
 import { Web3ReactManager } from '../Web3Status/Web3ReactManager'
 import { Header } from './Header'
-import { ApplicationProvider } from '../../state/state.provider'
+import { Web3StatusProvider } from '../../state/Web3Status.provider'
 import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './Layout.sytles'
 
 export function Layout({ children }: { children: JSX.Element }) {
   return (
     <AppWrapper>
-      <ApplicationProvider>
+      <Web3StatusProvider>
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
@@ -15,7 +15,7 @@ export function Layout({ children }: { children: JSX.Element }) {
           <Web3ReactManager>{children}</Web3ReactManager>
           <Marginer />
         </BodyWrapper>
-      </ApplicationProvider>
+      </Web3StatusProvider>
     </AppWrapper>
   )
 }

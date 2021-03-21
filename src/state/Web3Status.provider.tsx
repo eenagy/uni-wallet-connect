@@ -25,10 +25,10 @@ const actionsIntialValue = {
   toggleModal: () => {},
 }
 
-export const ApplicationState = createContext(stateInitialValue)
-export const ApplicationActions = createContext(actionsIntialValue)
+export const Web3StatusState = createContext(stateInitialValue)
+export const Web3StatusActions = createContext(actionsIntialValue)
 
-export const ApplicationProvider = ({ children }: Props) => {
+export const Web3StatusProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(
     (state: ApplicationState, action: ApplicationAction) => {
       switch (action.type) {
@@ -58,8 +58,8 @@ export const ApplicationProvider = ({ children }: Props) => {
   }, [])
 
   return (
-    <ApplicationState.Provider value={state}>
-      <ApplicationActions.Provider value={actions}>{children}</ApplicationActions.Provider>
-    </ApplicationState.Provider>
+    <Web3StatusState.Provider value={state}>
+      <Web3StatusActions.Provider value={actions}>{children}</Web3StatusActions.Provider>
+    </Web3StatusState.Provider>
   )
 }

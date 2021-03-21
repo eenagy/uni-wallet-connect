@@ -7,7 +7,7 @@ import { fortmatic } from '../../../connectors'
 import { OVERLAY_READY } from '../../../connectors/Fortmatic'
 import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../../../constants'
 import usePrevious from '../../../hooks/usePrevious'
-import { ApplicationState, ApplicationActions } from '../../../state/state.provider'
+import { Web3StatusState, Web3StatusActions } from '../../../state/Web3Status.provider'
 
 import { Modal } from '../../common/Modal'
 import { Wrapper } from './index.styles'
@@ -29,8 +29,8 @@ export function WalletModal({ pendingTransactions, confirmedTransactions, ENSNam
 
   const [pendingError, setPendingError] = useState<boolean>()
 
-  const { modalOpen } = useContext(ApplicationState)
-  const { toggleModal } = useContext(ApplicationActions)
+  const { modalOpen } = useContext(Web3StatusState)
+  const { toggleModal } = useContext(Web3StatusActions)
 
   const previousAccount = usePrevious(account)
 
