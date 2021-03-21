@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { ChainId } from '@uniswap/sdk'
-import { TransactionDetails } from '../state/transactions/hooks'
+import { TransactionDetails } from '../../../state/transactions/hooks'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Layout } from '../components/pages/Layout'
+import { Layout } from '../components/layouts/DefaultLayout'
 
 const Title = styled.h1`
   font-size: 50px;

@@ -1,7 +1,7 @@
 import { CurrencyAmount, JSBI } from '@uniswap/sdk'
 import { useMulticallContract, useSingleContractMultipleData } from './useContract'
 import { useMemo } from 'react'
-import { isAddress } from '../../../utils'
+import { isAddress } from '../utils'
 
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.

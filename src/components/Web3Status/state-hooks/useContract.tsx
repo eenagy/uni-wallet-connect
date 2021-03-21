@@ -1,12 +1,12 @@
-import { useActiveWeb3React } from './connect'
 import { Contract } from '@ethersproject/contracts'
-import { getContract } from '../../../utils'
+import { getContract } from '../utils'
 import { useContext, useMemo, useEffect } from 'react'
 import { MULTICALL_NETWORKS, MULTICALL_ABI } from '../constants/multicall'
 import { BigNumber } from '@ethersproject/bignumber'
 import { Interface, FunctionFragment } from '@ethersproject/abi'
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
 import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
+import {useActiveWeb3React} from './useActiveWeb3React'
 
 type MethodArg = string | number | BigNumber
 type OptionalMethodInputs = Array<MethodArg | MethodArg[] | undefined> | undefined

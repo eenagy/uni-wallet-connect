@@ -1,7 +1,7 @@
 import { StrictMode, Component } from 'react'
 import { ThemeProvider, ThemedGlobalStyle, FixedGlobalStyle } from '../theme'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
-import { getLibrary } from '../utils/getLibrary'
+import { getLibrary } from '../components/Web3Status/utils/getLibrary'
 import { NetworkContextName } from '../components/Web3Status/constants'
 
 // TODO fix this stupidity, though it works

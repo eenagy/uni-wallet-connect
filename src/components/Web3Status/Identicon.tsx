@@ -1,5 +1,5 @@
 import React from 'react'
-import { useActiveWeb3React } from './hooks/connect'
+import { useActiveWeb3React } from './state-hooks'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import styled from 'styled-components'
 

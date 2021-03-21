@@ -1,7 +1,7 @@
 import React from 'react'
-import { NETWORK_LABELS } from '../Web3Status/constants'
-import { useActiveWeb3React, useETHBalances } from '../Web3Status/hooks'
-import { Web3Status } from '../Web3Status'
+import { NETWORK_LABELS } from '../../Web3Status/constants'
+import { useActiveWeb3React, useETHBalances } from '../../Web3Status/state-hooks'
+import { Web3Status } from '../../Web3Status'
 import {
   HeaderFrame,
   HeaderControls,

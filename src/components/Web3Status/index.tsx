@@ -1,9 +1,9 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import React, { useMemo, useContext } from 'react'
 import { NetworkContextName } from './constants'
-import { useENSName } from './hooks'
+import { useENSName } from './state-hooks'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
-import { shortenAddress, newTransactionsFirst } from '../../utils'
+import { shortenAddress, newTransactionsFirst } from './utils'
 import { Web3StatusActions } from './Web3Status.provider'
 
 import {

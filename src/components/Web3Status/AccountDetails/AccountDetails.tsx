@@ -3,9 +3,9 @@ import { ThemeContext } from 'styled-components'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ExternalLink as LinkIcon } from 'react-feather'
 
-import { useActiveWeb3React } from '../hooks/connect'
+import { useActiveWeb3React } from '../state-hooks'
 import { clearAllTransactions } from '../../../state/transactions/hooks'
-import { shortenAddress, getEtherscanLink } from '../../../utils'
+import { shortenAddress, getEtherscanLink } from '../utils'
 import { injected, walletlink } from '../connectors'
 import { SUPPORTED_WALLETS } from '../constants'
 

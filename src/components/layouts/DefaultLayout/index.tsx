@@ -1,9 +1,10 @@
 import React from 'react'
-import { Web3ReactManager } from '../Web3Status/Web3ReactManager'
+import { Web3ReactManager } from '../../Web3Status/Web3ReactManager'
 import { Header } from './Header'
-import { Web3StatusProvider } from '../Web3Status/Web3Status.provider'
-import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './Layout.sytles'
+import { Web3StatusProvider } from '../../Web3Status/Web3Status.provider'
+import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './index.sytles'
 
+// Example
 export function Layout({ children }: { children: JSX.Element }) {
   return (
     <AppWrapper>

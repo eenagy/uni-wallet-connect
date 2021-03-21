@@ -6,7 +6,7 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { fortmatic } from '../connectors'
 import { OVERLAY_READY } from '../connectors/Fortmatic'
 import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../constants'
-import usePrevious from '../../../hooks/usePrevious'
+import usePrevious from '../hooks/usePrevious'
 import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
 
 import { Modal } from '../../common/Modal'
