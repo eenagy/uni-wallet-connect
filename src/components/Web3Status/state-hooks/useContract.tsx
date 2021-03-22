@@ -1,8 +1,11 @@
 import { Contract } from '@ethersproject/contracts'
-import { getContract, parseCallKey, toCallKey, toCallState } from '../utils'
+import { getContract, parseCallKey, toCallKey, toCallState, isValidMethodArgs } from '../utils'
 import { useContext, useMemo, useEffect } from 'react'
 import { MULTICALL_NETWORKS, MULTICALL_ABI } from '../constants/multicall'
 import { CallResult, INVALID_RESULT, OptionalMethodInputs, CallState, ListenerOptions, Call } from '../types'
+import { ChainId } from '@uniswap/sdk'
+import ENS_ABI from '../constants/abis/ens-registrar.json'
+import ENS_PUBLIC_RESOLVER_ABI from '../constants/abis/ens-public-resolver.json'
 
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
 import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
@@ -119,4 +122,52 @@ export function useSingleContractMultipleData(
   return useMemo(() => {
     return results.map((result) => toCallState(result, contract?.interface, fragment, latestBlockNumber))
   }, [fragment, contract, results, latestBlockNumber])
+}
+
+
+export function useSingleCallResult(
+  contract: Contract | null | undefined,
+  methodName: string,
+  inputs?: OptionalMethodInputs,
+  options?: ListenerOptions
+): CallState {
+  const fragment = useMemo(() => contract?.interface?.getFunction(methodName), [contract, methodName])
+
+  const calls = useMemo<Call[]>(() => {
+    return contract && fragment && isValidMethodArgs(inputs)
+      ? [
+          {
+            address: contract.address,
+            callData: contract.interface.encodeFunctionData(fragment, inputs)
+          }
+        ]
+      : []
+  }, [contract, fragment, inputs])
+
+  const result = useCallsData(calls, options)[0]
+  const latestBlockNumber = useBlockNumber()
+
+  return useMemo(() => {
+    return toCallState(result, contract?.interface, fragment, latestBlockNumber)
+  }, [result, contract, fragment, latestBlockNumber])
+}
+
+export function useENSRegistrarContract(withSignerIfPossible?: boolean): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  let address: string | undefined
+  if (chainId) {
+    switch (chainId) {
+      case ChainId.MAINNET:
+      case ChainId.GÖRLI:
+      case ChainId.ROPSTEN:
+      case ChainId.RINKEBY:
+        address = '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
+        break
+    }
+  }
+  return useContract(address, ENS_ABI, withSignerIfPossible)
+}
+
+export function useENSResolverContract(address: string | undefined, withSignerIfPossible?: boolean): Contract | null {
+  return useContract(address, ENS_PUBLIC_RESOLVER_ABI, withSignerIfPossible)
 }

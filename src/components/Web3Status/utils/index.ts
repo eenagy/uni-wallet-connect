@@ -1,11 +1,10 @@
 import { getAddress } from '@ethersproject/address'
 import { ChainId } from '@uniswap/sdk'
-import { TransactionDetails } from '../../../state/transactions/hooks'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
 import { Interface, FunctionFragment } from '@ethersproject/abi'
-import { CallState, Call, CallResult, Result } from '../types'
+import { CallState, Call, CallResult, Result, TransactionDetails, MethodArgs, MethodArg } from '../types'
 
 const INVALID_CALL_STATE: CallState = { valid: false, result: undefined, loading: false, syncing: false, error: false }
 const LOADING_CALL_STATE: CallState = { valid: true, result: undefined, loading: true, syncing: true, error: false }
@@ -157,6 +156,25 @@ export function chunkArray<T>(items: T[], maxChunkSize: number): T[][] {
  * Returns whether a transaction happened in the last day (86400 seconds * 1000 milliseconds / second)
  * @param tx to check for recency
  */
- export function isTransactionRecent(tx: TransactionDetails): boolean {
+export function isTransactionRecent(tx: TransactionDetails): boolean {
   return new Date().getTime() - tx.addedTime < 86_400_000
+}
+
+/**
+ * Returns true if the string value is zero in hex
+ * @param hexNumberString
+ */
+export function isZero(hexNumberString: string) {
+  return /^0x0*$/.test(hexNumberString)
+}
+
+function isMethodArg(x: unknown): x is MethodArg {
+  return ['string', 'number'].indexOf(typeof x) !== -1
+}
+
+export function isValidMethodArgs(x: unknown): x is MethodArgs | undefined {
+  return (
+    x === undefined ||
+    (Array.isArray(x) && x.every((xi) => isMethodArg(xi) || (Array.isArray(xi) && xi.every(isMethodArg))))
+  )
 }

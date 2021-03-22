@@ -34,6 +34,7 @@ export interface TransactionDetails {
   from: string
 }
 export type MethodArg = string | number | BigNumber
+export type MethodArgs = Array<MethodArg | MethodArg[]>
 export type OptionalMethodInputs = Array<MethodArg | MethodArg[] | undefined> | undefined
 export const INVALID_RESULT: CallResult = { valid: false, blockNumber: undefined, data: undefined }
 

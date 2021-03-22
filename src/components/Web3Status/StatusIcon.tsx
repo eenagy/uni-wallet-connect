@@ -33,6 +33,7 @@ export const IconWrapper = styled.div<{ size?: number, end?: boolean }>`
     align-items: flex-end;
   `: '')};
 `
+// TODO doesn't show colors on modal
 // eslint-disable-next-line react/prop-types
 export function StatusIcon({ connector, end }: { connector?: AbstractConnector, end?: boolean }) {
     if (connector === injected) {
