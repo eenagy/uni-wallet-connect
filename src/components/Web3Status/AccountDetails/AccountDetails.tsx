@@ -4,7 +4,6 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ExternalLink as LinkIcon } from 'react-feather'
 
 import { useActiveWeb3React } from '../state-hooks'
-import { clearAllTransactions } from '../../../state/transactions/hooks'
 import { shortenAddress, getEtherscanLink } from '../utils'
 import { injected, walletlink } from '../connectors'
 import { SUPPORTED_WALLETS } from '../constants'
@@ -31,6 +30,7 @@ import {
   LowerSection,
 } from './AccountDetails.styles'
 import { LinkStyledButton } from '../../../theme'
+import { Web3StatusActions } from '../Web3Status.provider'
 
 function formatConnectorName(connector: AbstractConnector | undefined) {
   // @ts-ignore
@@ -62,9 +62,9 @@ export function AccountDetails({
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
+  const { clearAllTransactions } = useContext(Web3StatusActions)
 
   const clearAllTransactionsCallback = useCallback(() => {
-    //@ts-ignore
     if (chainId) clearAllTransactions({ chainId })
   }, [chainId])
 
@@ -106,14 +106,14 @@ export function AccountDetails({
                   {ENSName ? (
                     <>
                       <div>
-                        <StatusIcon connector={connector} end/>
+                        <StatusIcon connector={connector} end />
                         <p> {ENSName}</p>
                       </div>
                     </>
                   ) : (
                     <>
                       <div>
-                      <StatusIcon connector={connector} end/>
+                        <StatusIcon connector={connector} end />
                         <p> {account && shortenAddress(account)}</p>
                       </div>
                     </>

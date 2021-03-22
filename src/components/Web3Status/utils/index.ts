@@ -5,7 +5,7 @@ import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
 import { Interface, FunctionFragment } from '@ethersproject/abi'
-
+import { CallState, Call, CallResult, Result } from '../types'
 
 const INVALID_CALL_STATE: CallState = { valid: false, result: undefined, loading: false, syncing: false, error: false }
 const LOADING_CALL_STATE: CallState = { valid: true, result: undefined, loading: true, syncing: true, error: false }
@@ -150,5 +150,13 @@ export function chunkArray<T>(items: T[], maxChunkSize: number): T[][] {
   const numChunks: number = Math.ceil(items.length / maxChunkSize)
   const chunkSize = Math.ceil(items.length / numChunks)
 
-  return [...Array(numChunks).keys()].map(ix => items.slice(ix * chunkSize, ix * chunkSize + chunkSize))
+  return [...Array(numChunks).keys()].map((ix) => items.slice(ix * chunkSize, ix * chunkSize + chunkSize))
+}
+
+/**
+ * Returns whether a transaction happened in the last day (86400 seconds * 1000 milliseconds / second)
+ * @param tx to check for recency
+ */
+ export function isTransactionRecent(tx: TransactionDetails): boolean {
+  return new Date().getTime() - tx.addedTime < 86_400_000
 }

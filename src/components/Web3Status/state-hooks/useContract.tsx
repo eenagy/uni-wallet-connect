@@ -1,18 +1,8 @@
 import { Contract } from '@ethersproject/contracts'
-import {
-  getContract,
-  ListenerOptions,
-  Call,
-  parseCallKey,
-  toCallKey,
-  toCallState,
-  CallResult,
-  INVALID_RESULT,
-  OptionalMethodInputs, 
-  CallState
-} from '../utils'
+import { getContract, parseCallKey, toCallKey, toCallState } from '../utils'
 import { useContext, useMemo, useEffect } from 'react'
 import { MULTICALL_NETWORKS, MULTICALL_ABI } from '../constants/multicall'
+import { CallResult, INVALID_RESULT, OptionalMethodInputs, CallState, ListenerOptions, Call } from '../types'
 
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
 import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'

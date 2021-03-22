@@ -57,8 +57,8 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
           const {
             calls,
             chainId,
-            options: { blocksPerFetch = 1 },
           } = action.payload
+          const { blocksPerFetch = 1 } = action.payload.options || {}
           const listeners = state.multicall.callListeners
             ? state.multicall.callListeners
             : (state.multicall.callListeners = {})
@@ -76,8 +76,8 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
           const {
             calls,
             chainId,
-            options: { blocksPerFetch = 1 },
           } = action.payload
+          const { blocksPerFetch = 1 } = action.payload.options || {}
           const listeners = state.multicall.callListeners
             ? state.multicall.callListeners
             : (state.multicall.callListeners = {})

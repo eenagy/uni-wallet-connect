@@ -12,12 +12,10 @@ import {
   BalanceText,
 } from './Header.styles'
 
-// TODO pooling on app start
 
 export function Header() {
   const { account, chainId } = useActiveWeb3React()
 
-  // TODO this is not working yet, because of missing polling
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
 
   return (
