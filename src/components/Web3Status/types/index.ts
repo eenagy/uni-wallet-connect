@@ -85,6 +85,8 @@ export interface IWeb3StatusState {
   application: {
     modalOpen: boolean
     blockNumber: { [chainId: number]: number }
+    popupList: PopupList
+    URLWarningVisible: boolean
   }
   multicall: {
     callListeners?: CallListeners
@@ -142,6 +144,17 @@ export type ApplicationAction =
       type: 'FINALIZE_TRANSACTION'
       payload: FinalizeTransaction
     }
+  | {
+      type: 'ADD_POPUP'
+      payload: { key: string , content: any, removeAfterMs?: number}
+    }
+  | {
+      type: 'REMOVE_POPUP'
+      payload: { key: string }
+    }
+  | {
+      type: 'TOGGLE_URL_WARNING'
+    }
 
 export interface ListenerProps {
   chainId: ChainId | undefined
@@ -180,3 +193,19 @@ export interface FinalizeTransaction {
   hash: string
   receipt: SerializableTransactionReceipt
 }
+
+export type PopupContent = {
+  txn: {
+    hash: string
+    success: boolean
+    summary?: string
+  }
+}
+export interface Popup {
+  key: string
+  show: boolean
+  content: PopupContent
+  removeAfterMs: number | null
+}
+
+export type PopupList = Array<Popup>

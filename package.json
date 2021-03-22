@@ -19,6 +19,7 @@
     "@web3-react/walletlink-connector": "6.1.9",
     "copy-to-clipboard": "3.3.1",
     "fortmatic": "2.2.1",
+    "nanoid": "^3.1.22",
     "next": "10.0.9",
     "polished": "4.1.1",
     "react": "17.0.1",

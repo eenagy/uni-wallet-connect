@@ -14,7 +14,6 @@ export function IdenticonUnstyled({ className }: { className?: string }) {
   const { account } = useActiveWeb3React()
 
   const seed = account ? parseInt(account.slice(2, 10), 16).toString() : ''
-  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
   return (
     <StyledIdenticonContainer>
       <Jazzicon address={seed} className={className} />
@@ -25,4 +24,5 @@ export function IdenticonUnstyled({ className }: { className?: string }) {
 // Fix height of jazzicon through className
 export const Identicon = styled(IdenticonUnstyled)`
   height: 1rem !important;
+  width: 1rem !important;
 `

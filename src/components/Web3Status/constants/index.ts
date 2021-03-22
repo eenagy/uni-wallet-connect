@@ -93,3 +93,5 @@ export const WALLET_VIEWS = {
   ACCOUNT: 'account',
   PENDING: 'pending',
 }
+
+export const APP_URL = 'app.wallet.something'

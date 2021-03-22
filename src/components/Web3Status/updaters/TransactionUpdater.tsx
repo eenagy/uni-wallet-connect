@@ -26,15 +26,13 @@ export function shouldCheck(
 export function TransactionUpdater(): null {
   const { chainId, library } = useActiveWeb3React()
   const { transactions: allTransactions } = useContext(Web3StatusState)
-  const { checkedTransaction, finalizeTransaction } = useContext(Web3StatusActions)
+  const { checkedTransaction, finalizeTransaction, addPopup } = useContext(Web3StatusActions)
 
   const lastBlockNumber = useBlockNumber()
 
   const transactions = chainId ? allTransactions[chainId] ?? {} : {}
 
   // show popup on confirm
-  // TODO
-  // const addPopup = useAddPopup()
 
   useEffect(() => {
     if (!chainId || !library || !lastBlockNumber) return
@@ -61,17 +59,16 @@ export function TransactionUpdater(): null {
                 },
               })
 
-              // TODO
-              //   addPopup(
-              //     {
-              //       txn: {
-              //         hash,
-              //         success: receipt.status === 1,
-              //         summary: transactions[hash]?.summary
-              //       }
-              //     },
-              //     hash
-              //   )
+              addPopup({
+                content: {
+                  txn: {
+                    hash,
+                    success: receipt.status === 1,
+                    summary: transactions[hash]?.summary,
+                  },
+                },
+                key: hash,
+              })
             } else {
               checkedTransaction({ chainId, hash, blockNumber: lastBlockNumber })
             }

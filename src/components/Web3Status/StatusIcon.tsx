@@ -19,48 +19,53 @@ export const WalletAction = styled(ButtonSecondary)`
 export const MainWalletAction = styled(WalletAction)`
   color: ${({ theme }) => theme.primary1};
 `
-export const IconWrapper = styled.div<{ size?: number, end?: boolean }>`
+export const IconWrapper = styled.div<{ size?: number; end?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
   justify-content: center;
-  margin-right:  ${({ end }) => (end ? '8px' : '')};
+  margin-right: ${({ end }) => (end ? '8px' : '')};
   & > img,
   span {
     height: ${({ size }) => (size ? size + 'px' : '32px')};
     width: ${({ size }) => (size ? size + 'px' : '32px')};
   }
-  ${({ theme, end }) => (end ? theme.mediaWidth.upToMedium`
+  ${({ theme, end }) =>
+    end
+      ? theme.mediaWidth.upToMedium`
     align-items: flex-end;
-  `: '')};
+  `
+      : ''};
 `
-// TODO doesn't show colors on modal
-// eslint-disable-next-line react/prop-types
-export function StatusIcon({ connector, end }: { connector?: AbstractConnector, end?: boolean }) {
-    if (connector === injected) {
-      return <Identicon />
-    } else if (connector === walletconnect) {
-      return (
-        <IconWrapper size={16} end={end}>
-          <Image src={'/assets/images/walletConnectIcon.svg'} alt={''} layout="fill" />
-        </IconWrapper>
-      )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16} end={end}>
-          <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={''} layout="fill" />
-        </IconWrapper>
-      )
-    } else if (connector === fortmatic) {
-      return (
-        <IconWrapper size={16} end={end}>
-          <Image src={'/assets/images/fortmaticIcon.png'} alt={''} layout="fill" />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <IconWrapper size={16} end={end}>
-          <Image src={'/assets/images/portisIcon.png'} alt={''} layout="fill" />
-          {end && 
+export function StatusIcon({ connector, end }: { connector?: AbstractConnector; end?: boolean }) {
+  if (connector === injected) {
+    return (
+      <IconWrapper size={16} end={end}>
+        <Identicon />
+      </IconWrapper>
+    )
+  } else if (connector === walletconnect) {
+    return (
+      <IconWrapper size={16} end={end}>
+        <Image src={'/assets/images/walletConnectIcon.svg'} alt={''} layout="fill" />
+      </IconWrapper>
+    )
+  } else if (connector === walletlink) {
+    return (
+      <IconWrapper size={16} end={end}>
+        <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={''} layout="fill" />
+      </IconWrapper>
+    )
+  } else if (connector === fortmatic) {
+    return (
+      <IconWrapper size={16} end={end}>
+        <Image src={'/assets/images/fortmaticIcon.png'} alt={''} layout="fill" />
+      </IconWrapper>
+    )
+  } else if (connector === portis) {
+    return (
+      <IconWrapper size={16} end={end}>
+        <Image src={'/assets/images/portisIcon.png'} alt={''} layout="fill" />
+        {end && (
           <MainWalletAction
             onClick={() => {
               portis.portis.showPortis()
@@ -68,9 +73,9 @@ export function StatusIcon({ connector, end }: { connector?: AbstractConnector, 
           >
             Show Portis
           </MainWalletAction>
-          }
-        </IconWrapper>
-      )
-    }
-    return null
+        )}
+      </IconWrapper>
+    )
   }
+  return null
+}

@@ -127,7 +127,10 @@ export const TYPE = {
 
   body(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={16} color={'text1'} {...props} />
-  }
+  },
+  small(props: TextProps) {
+    return <TextWrapper fontWeight={500} fontSize={11} {...props} />
+  },
 }
 
 export const FixedGlobalStyle = createGlobalStyle`

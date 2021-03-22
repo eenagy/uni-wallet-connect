@@ -10,13 +10,16 @@ import {
   Call,
   FinalizeTransaction,
   AddTransactionPayload,
-  CheckedTransactionPayload
+  CheckedTransactionPayload,
 } from './types'
+import { nanoid } from 'nanoid'
 
 export const stateInitialValue: IWeb3StatusState = {
   application: {
     modalOpen: false,
     blockNumber: {},
+    URLWarningVisible: true,
+    popupList: [],
   },
   multicall: { callResults: {} },
   transactions: {},
@@ -33,6 +36,9 @@ const actionsIntialValue = {
   addTransaction: (_: AddTransactionPayload) => {},
   finalizeTransaction: (_: FinalizeTransaction) => {},
   clearAllTransactions: (_: { chainId: number }) => {},
+  removePopup: (_: string) => {},
+  addPopup: (_: { key: string; content: any; removeAfterMs?: number }) => {},
+  toggleURLWarning: () => {},
 }
 
 export const Web3StatusState = createContext(stateInitialValue)
@@ -54,10 +60,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
           }
         }
         case 'ADD_MULTICALL_LISTENER': {
-          const {
-            calls,
-            chainId,
-          } = action.payload
+          const { calls, chainId } = action.payload
           const { blocksPerFetch = 1 } = action.payload.options || {}
           const listeners = state.multicall.callListeners
             ? state.multicall.callListeners
@@ -70,13 +73,10 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
               listeners[chainId][callKey][blocksPerFetch] = (listeners[chainId][callKey][blocksPerFetch] ?? 0) + 1
             })
           }
-          return state
+          return {...state}
         }
         case 'REMOVE_MULTICALL_LISTENER': {
-          const {
-            calls,
-            chainId,
-          } = action.payload
+          const { calls, chainId } = action.payload
           const { blocksPerFetch = 1 } = action.payload.options || {}
           const listeners = state.multicall.callListeners
             ? state.multicall.callListeners
@@ -95,7 +95,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
               }
             })
           }
-          return state
+          return {...state}
         }
         case 'FETCH_MULTICALL_LISTENER': {
           const { fetchingBlockNumber, chainId, calls } = action.payload
@@ -115,7 +115,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
             })
           }
 
-          return state
+          return {...state}
         }
         case 'ERROR_FETCH_MULTICALL_LISTENER': {
           const { fetchingBlockNumber, chainId, calls } = action.payload
@@ -132,7 +132,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
               }
             })
           }
-          return state
+          return {...state}
         }
         case 'UPDATE_MULTICALL_LISTENER': {
           const { blockNumber, chainId, results } = action.payload
@@ -147,7 +147,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
               }
             })
           }
-          return state
+          return {...state}
         }
         case 'UPDATE_BLOCK_NUMBER': {
           const { chainId, blockNumber } = action.payload
@@ -174,7 +174,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
             txs[hash] = { hash, approval, summary, claim, from, addedTime: now() }
             transactions[chainId] = txs
           }
-          return state
+          return {...state}
         }
         case 'CHECKED_TRANSACTION': {
           const { chainId, blockNumber, hash } = action.payload
@@ -190,7 +190,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
             }
           }
 
-          return state
+          return {...state}
         }
         case 'CLEAR_ALL_TRANSACTIONS': {
           const { chainId } = action.payload
@@ -199,7 +199,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
           if (transactions[chainId]) {
             transactions[chainId] = {}
           }
-          return state
+          return {...state}
         }
         case 'FINALIZE_TRANSACTION': {
           const { chainId, hash, receipt } = action.payload
@@ -209,8 +209,37 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
             tx.receipt = receipt
             tx.confirmedTime = now()
           }
-          
-          return state
+
+          return {...state}
+        }
+        case 'ADD_POPUP': {
+          const { content, key, removeAfterMs = 15000 } = action.payload
+          state.application.popupList = (key
+            ? state.application.popupList.filter((popup) => popup.key !== key)
+            : state.application.popupList
+          ).concat([
+            {
+              key: key || nanoid(),
+              show: true,
+              content,
+              removeAfterMs,
+            },
+          ])
+          return {...state}
+        }
+        case 'REMOVE_POPUP': {
+          const { key } = action.payload
+          state.application.popupList.forEach((p) => {
+            if (p.key === key) {
+              p.show = false
+            }
+          })
+          return {...state}
+        }
+        case 'TOGGLE_URL_WARNING': {
+          state.application.URLWarningVisible = !state.application.URLWarningVisible
+          console.log('TOGGLE_URL_WARNING state', state.application.URLWarningVisible)
+          return {...state}
         }
         default:
           return state
@@ -254,6 +283,16 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
       },
       clearAllTransactions: (payload: { chainId: number }) => {
         dispatch({ type: 'CLEAR_ALL_TRANSACTIONS', payload })
+      },
+      removePopup: (key: string) => {
+        dispatch({ type: 'REMOVE_POPUP', payload: { key } })
+      },
+      addPopup: (payload: { key: string; content: any; removeAfterMs?: number }) => {
+        dispatch({ type: 'ADD_POPUP', payload })
+      },
+      toggleURLWarning: () => {
+        console.log('toggle')
+        dispatch({ type: 'TOGGLE_URL_WARNING' })
       },
     }
   }, [])
