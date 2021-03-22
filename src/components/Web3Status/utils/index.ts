@@ -4,7 +4,72 @@ import { TransactionDetails } from '../../../state/transactions/hooks'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
+import { Interface, FunctionFragment } from '@ethersproject/abi'
 
+
+const INVALID_CALL_STATE: CallState = { valid: false, result: undefined, loading: false, syncing: false, error: false }
+const LOADING_CALL_STATE: CallState = { valid: true, result: undefined, loading: true, syncing: true, error: false }
+
+const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
+const LOWER_HEX_REGEX = /^0x[a-f0-9]*$/
+
+export function parseCallKey(callKey: string): Call {
+  const pcs = callKey.split('-')
+  if (pcs.length !== 2) {
+    throw new Error(`Invalid call key: ${callKey}`)
+  }
+  return {
+    address: pcs[0],
+    callData: pcs[1],
+  }
+}
+
+export function toCallKey(call: Call): string {
+  if (!ADDRESS_REGEX.test(call.address)) {
+    throw new Error(`Invalid address: ${call.address}`)
+  }
+  if (!LOWER_HEX_REGEX.test(call.callData)) {
+    throw new Error(`Invalid hex: ${call.callData}`)
+  }
+  return `${call.address}-${call.callData}`
+}
+
+export function toCallState(
+  callResult: CallResult | undefined,
+  contractInterface: Interface | undefined,
+  fragment: FunctionFragment | undefined,
+  latestBlockNumber: number | undefined
+): CallState {
+  if (!callResult) return INVALID_CALL_STATE
+  const { valid, data, blockNumber } = callResult
+  if (!valid) return INVALID_CALL_STATE
+  if (valid && !blockNumber) return LOADING_CALL_STATE
+  if (!contractInterface || !fragment || !latestBlockNumber) return LOADING_CALL_STATE
+  const success = data && data.length > 2
+  const syncing = (blockNumber ?? 0) < latestBlockNumber
+  let result: Result | undefined = undefined
+  if (success && data) {
+    try {
+      result = contractInterface.decodeFunctionResult(fragment, data)
+    } catch (error) {
+      console.debug('Result data parsing failed', fragment, data)
+      return {
+        valid: true,
+        loading: false,
+        error: true,
+        syncing,
+        result,
+      }
+    }
+  }
+  return {
+    valid: true,
+    loading: false,
+    syncing,
+    result: result,
+    error: !success,
+  }
+}
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
@@ -74,4 +139,16 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
   }
 
   return new Contract(address, ABI, getProviderOrSigner(library, account) as any)
+}
+
+// chunks array into chunks of maximum size
+// evenly distributes items among the chunks
+export function chunkArray<T>(items: T[], maxChunkSize: number): T[][] {
+  if (maxChunkSize < 1) throw new Error('maxChunkSize must be gte 1')
+  if (items.length <= maxChunkSize) return [items]
+
+  const numChunks: number = Math.ceil(items.length / maxChunkSize)
+  const chunkSize = Math.ceil(items.length / numChunks)
+
+  return [...Array(numChunks).keys()].map(ix => items.slice(ix * chunkSize, ix * chunkSize + chunkSize))
 }

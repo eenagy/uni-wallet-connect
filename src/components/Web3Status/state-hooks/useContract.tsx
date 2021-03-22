@@ -1,108 +1,23 @@
 import { Contract } from '@ethersproject/contracts'
-import { getContract } from '../utils'
+import {
+  getContract,
+  ListenerOptions,
+  Call,
+  parseCallKey,
+  toCallKey,
+  toCallState,
+  CallResult,
+  INVALID_RESULT,
+  OptionalMethodInputs, 
+  CallState
+} from '../utils'
 import { useContext, useMemo, useEffect } from 'react'
 import { MULTICALL_NETWORKS, MULTICALL_ABI } from '../constants/multicall'
-import { BigNumber } from '@ethersproject/bignumber'
-import { Interface, FunctionFragment } from '@ethersproject/abi'
+
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
 import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
-import {useActiveWeb3React} from './useActiveWeb3React'
+import { useActiveWeb3React } from './useActiveWeb3React'
 
-type MethodArg = string | number | BigNumber
-type OptionalMethodInputs = Array<MethodArg | MethodArg[] | undefined> | undefined
-const INVALID_RESULT: CallResult = { valid: false, blockNumber: undefined, data: undefined }
-
-export interface Result extends ReadonlyArray<any> {
-  readonly [key: string]: any
-}
-export interface ListenerOptions {
-  // how often this data should be fetched, by default 1
-  readonly blocksPerFetch?: number
-}
-
-interface CallState {
-  readonly valid: boolean
-  // the result, or undefined if loading or errored/no data
-  readonly result: Result | undefined
-  // true if the result has never been fetched
-  readonly loading: boolean
-  // true if the result is not for the latest block
-  readonly syncing: boolean
-  // true if the call was made and is synced, but the return data is invalid
-  readonly error: boolean
-}
-
-export interface Call {
-  address: string
-  callData: string
-}
-interface CallResult {
-  readonly valid: boolean
-  readonly data: string | undefined
-  readonly blockNumber: number | undefined
-}
-const INVALID_CALL_STATE: CallState = { valid: false, result: undefined, loading: false, syncing: false, error: false }
-const LOADING_CALL_STATE: CallState = { valid: true, result: undefined, loading: true, syncing: true, error: false }
-
-const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
-const LOWER_HEX_REGEX = /^0x[a-f0-9]*$/
-function parseCallKey(callKey: string): Call {
-  const pcs = callKey.split('-')
-  if (pcs.length !== 2) {
-    throw new Error(`Invalid call key: ${callKey}`)
-  }
-  return {
-    address: pcs[0],
-    callData: pcs[1],
-  }
-}
-
-function toCallKey(call: Call): string {
-  if (!ADDRESS_REGEX.test(call.address)) {
-    throw new Error(`Invalid address: ${call.address}`)
-  }
-  if (!LOWER_HEX_REGEX.test(call.callData)) {
-    throw new Error(`Invalid hex: ${call.callData}`)
-  }
-  return `${call.address}-${call.callData}`
-}
-
-function toCallState(
-  callResult: CallResult | undefined,
-  contractInterface: Interface | undefined,
-  fragment: FunctionFragment | undefined,
-  latestBlockNumber: number | undefined
-): CallState {
-  if (!callResult) return INVALID_CALL_STATE
-  const { valid, data, blockNumber } = callResult
-  if (!valid) return INVALID_CALL_STATE
-  if (valid && !blockNumber) return LOADING_CALL_STATE
-  if (!contractInterface || !fragment || !latestBlockNumber) return LOADING_CALL_STATE
-  const success = data && data.length > 2
-  const syncing = (blockNumber ?? 0) < latestBlockNumber
-  let result: Result | undefined = undefined
-  if (success && data) {
-    try {
-      result = contractInterface.decodeFunctionResult(fragment, data)
-    } catch (error) {
-      console.debug('Result data parsing failed', fragment, data)
-      return {
-        valid: true,
-        loading: false,
-        error: true,
-        syncing,
-        result,
-      }
-    }
-  }
-  return {
-    valid: true,
-    loading: false,
-    syncing,
-    result: result,
-    error: !success,
-  }
-}
 // returns null on errors
 function useContract(address: string | undefined, ABI: any, withSignerIfPossible = true): Contract | null {
   const { library, account } = useActiveWeb3React()
