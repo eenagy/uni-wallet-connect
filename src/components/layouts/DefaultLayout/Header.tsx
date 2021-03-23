@@ -6,12 +6,10 @@ import {
   HeaderFrame,
   HeaderControls,
   HeaderElement,
-  HideSmall,
   AccountElement,
   NetworkCard,
   BalanceText,
 } from './Header.styles'
-
 
 export function Header() {
   const { account, chainId } = useActiveWeb3React()
@@ -22,17 +20,9 @@ export function Header() {
     <HeaderFrame>
       <HeaderControls>
         <HeaderElement>
-          <HideSmall>
-            {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
-            )}
-          </HideSmall>
-          <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
-            {account && userEthBalance ? (
-              <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} ETH
-              </BalanceText>
-            ) : null}
+          {chainId && NETWORK_LABELS[chainId] && <NetworkCard>{NETWORK_LABELS[chainId]}</NetworkCard>}
+          <AccountElement>
+            {account && userEthBalance && <BalanceText>{userEthBalance?.toSignificant(4)} ETH</BalanceText>}
             <Web3Status />
           </AccountElement>
         </HeaderElement>

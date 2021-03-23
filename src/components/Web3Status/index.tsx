@@ -42,6 +42,7 @@ export function Web3Status() {
 
   return (
     <>
+        
       {account && (
         <Web3StatusConnected id="web3-status-connected" onClick={toggleModal} pending={hasPendingTransactions}>
           {hasPendingTransactions ? (

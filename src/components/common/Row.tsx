@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import { Box } from 'rebass/styled-components'
+import { ReactNode } from 'react'
+import clsx from 'clsx'
 
 export const Row = styled(Box)<{
   width?: string
@@ -19,9 +21,9 @@ export const Row = styled(Box)<{
   border-radius: ${({ borderRadius }) => borderRadius};
 `
 
-export const RowBetween = styled(Row)`
-  justify-content: space-between;
-`
+export const RowBetween = ({ children }: { children: ReactNode }) => {
+  return <div className={clsx('p-0 flex w-full items-center justify-between')}>{children}</div>
+}
 
 export const RowFlat = styled.div`
   display: flex;
@@ -42,4 +44,3 @@ export const RowFixed = styled(Row)<{ gap?: string; justify?: string }>`
   width: fit-content;
   margin: ${({ gap }) => gap && `-${gap}`};
 `
-

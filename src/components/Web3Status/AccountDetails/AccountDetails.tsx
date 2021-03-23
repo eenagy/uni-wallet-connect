@@ -32,7 +32,7 @@ import {
 import { LinkStyledButton } from '../../../theme'
 import { Web3StatusActions } from '../Web3Status.provider'
 
-function formatConnectorName(connector: AbstractConnector | undefined) {
+function getName(connector: AbstractConnector | undefined) {
   // @ts-ignore
   const { ethereum } = window
   const isMetaMask = !!(ethereum && ethereum.isMetaMask)
@@ -42,7 +42,7 @@ function formatConnectorName(connector: AbstractConnector | undefined) {
         SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK'))
     )
     .map((k) => SUPPORTED_WALLETS[k].name)[0]
-  return <WalletName>Connected with {name}</WalletName>
+  return name
 }
 
 interface AccountDetailsProps {
@@ -79,7 +79,7 @@ export function AccountDetails({
           <YourAccount>
             <InfoCard>
               <AccountGroupingRow>
-                {formatConnectorName(connector)}
+                <WalletName>Connected with {getName(connector)}</WalletName>
                 <div>
                   {connector !== injected && connector !== walletlink && (
                     <WalletAction
@@ -91,12 +91,7 @@ export function AccountDetails({
                       Disconnect
                     </WalletAction>
                   )}
-                  <WalletAction
-                    style={{ fontSize: '.825rem', fontWeight: 400 }}
-                    onClick={() => {
-                      openOptions()
-                    }}
-                  >
+                  <WalletAction style={{ fontSize: '.825rem', fontWeight: 400 }} onClick={openOptions}>
                     Change
                   </WalletAction>
                 </div>
@@ -104,67 +99,59 @@ export function AccountDetails({
               <AccountGroupingRow id="web3-account-identifier-row">
                 <AccountControl>
                   {ENSName ? (
-                    <>
-                      <div>
-                        <StatusIcon connector={connector} end />
-                        <p> {ENSName}</p>
-                      </div>
-                    </>
+                    <div>
+                      <StatusIcon connector={connector} end />
+                      <p> {ENSName}</p>
+                    </div>
                   ) : (
-                    <>
-                      <div>
-                        <StatusIcon connector={connector} end />
-                        <p> {account && shortenAddress(account)}</p>
-                      </div>
-                    </>
+                    <div>
+                      <StatusIcon connector={connector} end />
+                      <p> {account && shortenAddress(account)}</p>
+                    </div>
                   )}
                 </AccountControl>
               </AccountGroupingRow>
               <AccountGroupingRow>
                 {ENSName ? (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <Copy toCopy={account}>
-                            <span style={{ marginLeft: '4px' }}>Copy Address</span>
-                          </Copy>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={true}
-                            href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
+                  <AccountControl>
+                    <div>
+                      {account && (
+                        <Copy toCopy={account}>
+                          <span style={{ marginLeft: '4px' }}>Copy Address</span>
+                        </Copy>
+                      )}
+                      {chainId && account && (
+                        <AddressLink
+                          hasENS={!!ENSName}
+                          isENS={true}
+                          href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
+                        >
+                          <LinkIcon size={16} />
+                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
+                        </AddressLink>
+                      )}
+                    </div>
+                  </AccountControl>
                 ) : (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <Copy toCopy={account}>
-                            <span style={{ marginLeft: '4px' }}>Copy Address</span>
-                          </Copy>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={false}
-                            href={getEtherscanLink(chainId, account, 'address')}
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
+                  <AccountControl>
+                    <div>
+                      {account && (
+                        <Copy toCopy={account}>
+                          <span style={{ marginLeft: '4px' }}>Copy Address</span>
+                        </Copy>
+                      )}
+                      {chainId && account && (
+                        <AddressLink
+                          hasENS={!!ENSName}
+                          isENS={false}
+                          href={getEtherscanLink(chainId, account, 'address')}
+                        >
+                          <LinkIcon size={16} />
+                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
+                        </AddressLink>
+                      )}
+                    </div>
+                  </AccountControl>
                 )}
               </AccountGroupingRow>
             </InfoCard>

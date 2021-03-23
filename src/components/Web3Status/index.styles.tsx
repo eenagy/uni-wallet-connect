@@ -1,89 +1,87 @@
 import { Activity } from 'react-feather'
-import styled, { css } from 'styled-components'
-import { darken, lighten } from 'polished'
-import { ButtonSecondary } from '../common/Button'
+import { ReactNode } from 'react'
+import clsx from 'clsx'
 
+export const Web3StatusError = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  return (
+    <div
+      className="w-full flex items-center p-2 rounded-lg cursor-pointer select-none focus:outline-none
+                    bg-red-500 border border-solid border-red-500 text-white
+                    font-medium hover:bg-red-600 focus:bg-red-600"
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  )
+}
 
+export const Web3StatusConnected = ({
+  children,
+  pending,
+  onClick,
+  id
+}: {
+  children: ReactNode
+  onClick: () => void
+  pending: boolean,
+  id: string
+}) => {
+  return (
+    <div
+      className={clsx(
+        'w-full flex items-center p-2 rounded-lg cursor-pointer select-none focus:outline-none',
+        'bg-gray-100 text-black font-medium border border-solid border-gray-300 shadow',
+        'hover:text-black  hover:border-pink-500',
+        'focus:text-black  focus:border-pink-500',
+        pending && 'bg-pink-500 focus:border-pink-600 hover:border-pink-600'
+      )}
+      onClick={onClick}
+      id={id}
+    >
+      {children}
+    </div>
+  )
+}
 
-export const Web3StatusGeneric = styled(ButtonSecondary)`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
-`
-export const Web3StatusError = styled(Web3StatusGeneric)`
-  background-color: ${({ theme }) => theme.red1};
-  border: 1px solid ${({ theme }) => theme.red1};
-  color: ${({ theme }) => theme.white};
-  font-weight: 500;
-  :hover,
-  :focus {
-    background-color: ${({ theme }) => darken(0.1, theme.red1)};
-  }
-`
+export const Web3StatusConnect = ({
+  children,
+  faded,
+  onClick,
+  id,
+}: {
+  children: ReactNode
+  onClick: () => void
+  faded: boolean
+  id: string
+}) => {
+  return (
+    <div
+      className={clsx(
+        'w-full flex items-center p-2 rounded-lg cursor-pointer select-none focus:outline-none',
+        'bg-pink-300 text-black font-medium',
+        'hover:text-black hover:border hover:border-solid hover:border-pink-300',
+        'focus:text-black focus:border focus:border-solid focus:border-pink-300',
+        faded && 'bg-pink-100 border border-solid border-pink-100 text-black'
+      )}
+      onClick={onClick}
+      id={id}
+    >
+      {children}
+    </div>
+  )
+}
 
-export const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
-  background-color: ${({ theme }) => theme.primary4};
-  border: none;
-  color: ${({ theme }) => theme.primaryText1};
-  font-weight: 500;
+export const Text = ({ children }: { children: ReactNode }) => {
+  return (
+    <p
+      className="flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap font-medium text-base mr-2 ml-1"
+      style={{ width: 'fit-content' }}
+    >
+      {children}
+    </p>
+  )
+}
 
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => theme.primaryText1};
-  }
-
-  ${({ faded }) =>
-    faded &&
-    css`
-      background-color: ${({ theme }) => theme.primary5};
-      border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.primaryText1};
-
-      :hover,
-      :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-        color: ${({ theme }) => darken(0.05, theme.primaryText1)};
-      }
-    `}
-`
-
-export const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
-  background-color: ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg2)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg3)};
-  color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
-  font-weight: 500;
-  :hover,
-  :focus {
-    background-color: ${({ pending, theme }) => (pending ? darken(0.05, theme.primary1) : lighten(0.05, theme.bg2))};
-
-    :focus {
-      border: 1px solid ${({ pending, theme }) => (pending ? darken(0.1, theme.primary1) : darken(0.1, theme.bg3))};
-    }
-  }
-`
-
-export const Text = styled.p`
-  flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin: 0 0.5rem 0 0.25rem;
-  font-size: 1rem;
-  width: fit-content;
-  font-weight: 500;
-`
-
-export const NetworkIcon = styled(Activity)`
-  margin-left: 0.25rem;
-  margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
-`
+export const NetworkIcon = () => {
+  return <Activity className="w-4 h-4 mr-2 ml-1" />
+}

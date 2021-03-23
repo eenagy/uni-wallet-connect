@@ -1,8 +1,9 @@
 import { StrictMode, Component } from 'react'
-import { ThemeProvider, ThemedGlobalStyle, FixedGlobalStyle } from '../theme'
+import { ThemeProvider } from '../theme'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from '../components/Web3Status/utils/getLibrary'
 import { NetworkContextName } from '../components/Web3Status/constants'
+import '../styles/global.css'
 
 // TODO fix this stupidity, though it works
 class ErrorBoundaryWeb3ProviderNetwork extends Component {
@@ -28,15 +29,15 @@ class ErrorBoundaryWeb3ProviderNetwork extends Component {
     return <Web3ProviderNetwork getLibrary={getLibrary}>{this.props.children}</Web3ProviderNetwork>
   }
 }
-
+// TODO FIXEDglobalstyle, 
+// TODO ThemedGlobalStyle
+// TODO theme
 export default function App({ Component, pageProps }) {
   return (
     <StrictMode>
-      <FixedGlobalStyle />
       <Web3ReactProvider getLibrary={getLibrary}>
         <ErrorBoundaryWeb3ProviderNetwork>
           <ThemeProvider>
-            <ThemedGlobalStyle />
             <Component {...pageProps} />
           </ThemeProvider>
         </ErrorBoundaryWeb3ProviderNetwork>
