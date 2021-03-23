@@ -10,43 +10,81 @@ import {
   HoverText,
   OptionGrid,
   Blurb,
-} from './index.styles'
-import { UnsupportedChainIdError } from '@web3-react/core'
-import { WALLET_VIEWS } from '../constants'
+} from './ModalContent.styles'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../constants'
 import { Options } from './Options'
 import { AbstractConnector } from '@web3-react/abstract-connector'
+import { useEffect, useState, useContext } from 'react'
+import { Web3StatusState } from '../Web3Status.provider'
+import usePrevious from '../hooks/usePrevious'
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 
 interface Props {
-    error: any;
     toggleModal: () => void;
-    account?: string | null;
-    walletView: string;
     pendingTransactions: string[];
     confirmedTransactions: string[];
     ENSName?: string;
-    setWalletView: (s:string) => void,
-    pendingWallet?: AbstractConnector,
-    setPendingError: (b:boolean) => void,
-    tryActivation: (connector: AbstractConnector | undefined)=> void,
-    pendingError?: boolean,
     connector?: AbstractConnector,
 }
 
 export function ModalContent({
-  error,
   toggleModal,
-  account,
-  walletView,
   pendingTransactions,
   confirmedTransactions,
   ENSName,
-  setWalletView,
-  pendingWallet,
-  setPendingError,
-  tryActivation,
-  pendingError,
-  connector,
 }: Props) {
+  const { active, account, connector, activate, error } = useWeb3React()
+  const { application: {modalOpen }} = useContext(Web3StatusState)
+
+  const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
+  const [pendingError, setPendingError] = useState<boolean>()
+  const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
+
+   // always reset to account view
+   useEffect(() => {
+    if (modalOpen) {
+      setPendingError(false)
+      setWalletView(WALLET_VIEWS.ACCOUNT)
+    }
+  }, [modalOpen])
+
+  // close modal when a connection is successful
+  const activePrevious = usePrevious(active)
+  const connectorPrevious = usePrevious(connector)
+  useEffect(() => {
+    if (modalOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
+      setWalletView(WALLET_VIEWS.ACCOUNT)
+    }
+  }, [setWalletView, active, error, connector, modalOpen, activePrevious, connectorPrevious])
+
+  const tryActivation = async (connector: AbstractConnector | undefined) => {
+    // TODO lookup web3
+    let name = ''
+    Object.keys(SUPPORTED_WALLETS).map((key) => {
+      if (connector === SUPPORTED_WALLETS[key].connector) {
+        return (name = SUPPORTED_WALLETS[key].name)
+      }
+      return true
+    })
+
+    setPendingWallet(connector) // set wallet for pending view
+    setWalletView(WALLET_VIEWS.PENDING)
+
+    // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
+    if (connector instanceof WalletConnectConnector && connector.walletConnectProvider?.wc?.uri) {
+      connector.walletConnectProvider = undefined
+    }
+
+    connector &&
+      activate(connector, undefined, true).catch((error) => {
+        if (error instanceof UnsupportedChainIdError) {
+          activate(connector) // a little janky...can't use setError because the connector isn't set
+        } else {
+          setPendingError(true)
+        }
+      })
+  }
   if (error) {
     return (
       <UpperSection>

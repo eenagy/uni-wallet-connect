@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactNode } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import styled from 'styled-components'
 
 import { network } from './connectors'
 import { useEagerConnect, useInactiveListener } from './state-hooks/connect'
 import { NetworkContextName } from './constants'
 import { Loader } from '../common/Loader'
 
-const MessageWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20rem;
-`
-
-const Message = styled.h2`
-  color: ${({ theme }) => theme.secondary1};
-`
+const MessageWrapper = ({children}: {children:ReactNode}) => {
+  return <div className='flex items-center justify-center h-80'>{children}</div>
+}
 
 export function Web3ReactManager({ children }: { children: JSX.Element }) {
   const { active } = useWeb3React()
@@ -56,7 +48,7 @@ export function Web3ReactManager({ children }: { children: JSX.Element }) {
   if (!active && networkError) {
     return (
       <MessageWrapper>
-        <Message>{'unknownError'}</Message>
+        <h2 className='text-pink-500'>{'unknownError'}</h2>
       </MessageWrapper>
     )
   }

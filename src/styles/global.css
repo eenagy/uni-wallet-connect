@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.identicon {
+  height: 20px !important;
+  width: 20px !important;
+}

@@ -5,6 +5,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import Image from 'next/image'
 import { ButtonSecondary } from '../common/Button'
 
+// TODO try out different connectors
 export const WalletAction = styled(ButtonSecondary)`
   width: fit-content;
   font-weight: 400;
@@ -38,11 +39,7 @@ export const IconWrapper = styled.div<{ size?: number; end?: boolean }>`
 `
 export function StatusIcon({ connector, end }: { connector?: AbstractConnector; end?: boolean }) {
   if (connector === injected) {
-    return (
-      <IconWrapper size={16} end={end}>
-        <Identicon />
-      </IconWrapper>
-    )
+    return <Identicon />
   } else if (connector === walletconnect) {
     return (
       <IconWrapper size={16} end={end}>

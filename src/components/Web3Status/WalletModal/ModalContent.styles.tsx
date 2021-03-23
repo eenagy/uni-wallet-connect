@@ -1,15 +1,19 @@
 import styled from 'styled-components'
 import { X as Close } from 'react-feather'
+import { ReactNode } from 'react'
 
-export const CloseIcon = styled.div`
-  position: absolute;
-  right: 1rem;
-  top: 14px;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.6;
-  }
-`
+
+export const CloseIcon = ({ children, onClick }: { children: ReactNode , onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute r-4 t-4  hover:cursor-pointer hover:opacity-60"
+    >
+      {children}
+    </button>
+  )
+}
+
 
 // @ts-ignore
 export const CloseColor = styled(Close)`
@@ -18,12 +22,16 @@ export const CloseColor = styled(Close)`
   }
 `
 
-export const Wrapper = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  margin: 0;
-  padding: 0;
-  width: 100%;
-`
+export const Wrapper = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className="w-full"
+    >
+      {children}
+    </div>
+  )
+}
+
 
 export const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
