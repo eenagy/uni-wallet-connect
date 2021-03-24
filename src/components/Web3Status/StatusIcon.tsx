@@ -7,30 +7,6 @@ import { ReactNode } from 'react'
 import clsx from 'clsx'
 
 // TODO try out different connectors
-const ButtonSecondary = styled.div`
-  background-color: transparent;
-  font-size: 16px;
-  border-radius: 12px;
-
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    border: 1px solid ${({ theme }) => theme.primary3};
-  }
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.primary3};
-  }
-  &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    border: 1px solid ${({ theme }) => theme.primary3};
-  }
-  &:disabled {
-    opacity: 50%;
-    cursor: auto;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-`
 export const MainWalletAction = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
   return (
     <button
