@@ -1,14 +1,9 @@
 import React from 'react'
-import { Web3ReactManager } from '../../Web3Status/Web3ReactManager'
+import { Web3StatusManager, Web3StatusProvider, Updaters, URLWarning, CurrentBlockNumber, Popups } from '../../Web3Status'
 import { Header } from './Header'
-import { Web3StatusProvider } from '../../Web3Status/Web3Status.provider'
-import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './index.sytles'
-import { Updaters } from '../../Web3Status/updaters'
-import { CurrentBlockNumber } from '../../Web3Status/CurrentBlockNumber'
-import { URLWarning } from '../../Web3Status/URLWarning'
-import { Popups } from '../../Web3Status/Popups'
+import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './index.styles'
 
-// Example
+// Example layout
 export function Layout({ children }: { children: JSX.Element }) {
   return (
     <AppWrapper>
@@ -21,7 +16,7 @@ export function Layout({ children }: { children: JSX.Element }) {
         <BodyWrapper>
           <CurrentBlockNumber />
           <Popups />
-          <Web3ReactManager>{children}</Web3ReactManager>
+          <Web3StatusManager>{children}</Web3StatusManager>
           <Marginer />
         </BodyWrapper>
       </Web3StatusProvider>

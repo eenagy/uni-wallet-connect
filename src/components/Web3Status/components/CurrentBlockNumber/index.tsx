@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ReactNode } from 'react'
-import { ExternalLink } from '../../common/ExternalLink'
+import { ExternalLink } from '../common/ExternalLink'
 
-import { useBlockNumber, useActiveWeb3React } from '../state-hooks'
-import { getEtherscanLink } from '../utils'
+import { useBlockNumber, useActiveWeb3React } from '../../state-hooks'
+import { getEtherscanLink } from '../../utils'
 
 export const StyledPolling = ({ children }: { children: ReactNode }) => {
   return (

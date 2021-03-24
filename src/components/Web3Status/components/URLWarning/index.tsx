@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext } from 'react'
 import { AlertTriangle, X } from 'react-feather'
 import { isMobile } from 'react-device-detect'
-import { Web3StatusActions, Web3StatusState } from '../Web3Status.provider'
-import { APP_URL } from '../constants'
+import { Web3StatusActions, Web3StatusState } from '../../index.provider'
+import { APP_URL } from '../../constants'
 import clsx from 'clsx'
 
 const PhisAlert2 = ({ children, isActive }: { children: ReactNode; isActive: boolean }) => {

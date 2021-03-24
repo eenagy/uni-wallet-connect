@@ -1,8 +1,8 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import React, { useMemo } from 'react'
 import { Option } from './Option'
-import { SUPPORTED_WALLETS } from '../constants'
-import { injected } from '../connectors'
+import { SUPPORTED_WALLETS } from '../../constants'
+import { injected } from '../../connectors'
 import {
   PendingSection,
   LoadingMessage,

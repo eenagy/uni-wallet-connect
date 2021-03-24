@@ -1,5 +1,5 @@
 import { X as Close } from 'react-feather'
-import { ExternalLink } from '../../common/ExternalLink'
+import { ExternalLink } from '../common/ExternalLink'
 import { HTMLProps, ReactNode } from 'react'
 
 export const HeaderRow = ({ children }: { children: ReactNode }) => {

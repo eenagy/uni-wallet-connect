@@ -8,7 +8,7 @@ import ENS_ABI from '../constants/abis/ens-registrar.json'
 import ENS_PUBLIC_RESOLVER_ABI from '../constants/abis/ens-public-resolver.json'
 
 // Instead of redux just use a Web3Status which groups together the required state for wallet connect related features
-import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
+import { Web3StatusState, Web3StatusActions } from '../index.provider'
 import { useActiveWeb3React } from './useActiveWeb3React'
 
 // returns null on errors

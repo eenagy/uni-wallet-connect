@@ -3,8 +3,8 @@ import { X } from 'react-feather'
 import { useSpring } from 'react-spring'
 import { animated } from 'react-spring'
 import { TransactionPopup } from './TransactionPopup'
-import { Web3StatusActions } from '../Web3Status.provider'
-import { PopupContent } from '../types'
+import { Web3StatusActions } from '../../index.provider'
+import { PopupContent } from '../../types'
 
 export const StyledClose = ({ onClick }: { onClick: () => void }) => {
   return <X className="absolute right-3 top-3 hover:cursor-pointer" onClick={onClick}></X>

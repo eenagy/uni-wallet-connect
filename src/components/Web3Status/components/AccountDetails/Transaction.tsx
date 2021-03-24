@@ -1,8 +1,8 @@
 import React from 'react'
 import { CheckCircle, Triangle } from 'react-feather'
-import { useActiveWeb3React, useAllTransactions } from '../state-hooks'
-import { getEtherscanLink } from '../utils'
-import { Loader } from '../../common/Loader'
+import { useActiveWeb3React, useAllTransactions } from '../../state-hooks'
+import { getEtherscanLink } from '../../utils'
+import { Loader } from '../common/Loader'
 import { TransactionState, TransactionStatusText, RowFixed } from './Transactions.styles'
 
 

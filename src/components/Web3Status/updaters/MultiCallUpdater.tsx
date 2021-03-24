@@ -4,7 +4,7 @@ import { useActiveWeb3React, useMulticallContract, useBlockNumber } from '../sta
 import useDebounce from '../hooks/useDebounce'
 import { chunkArray, Call, parseCallKey } from '../utils'
 import { CancelledError, retry, RetryableError } from '../utils/retry'
-import { CallListeners, CallResult, Web3StatusActions, Web3StatusState } from '../Web3Status.provider'
+import { CallListeners, CallResult, Web3StatusActions, Web3StatusState } from '../index.provider'
 
 // chunk calls so we do not exceed the gas limit
 const CALL_CHUNK_SIZE = 500

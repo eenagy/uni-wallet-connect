@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExternalLink } from '../../common/ExternalLink'
+import { ExternalLink } from '../common/ExternalLink'
 import Image from 'next/image'
 import {
   OptionCardClickable,

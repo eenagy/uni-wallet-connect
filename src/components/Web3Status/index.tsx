@@ -3,7 +3,7 @@ import React, { useMemo, useContext } from 'react'
 import { NetworkContextName } from './constants'
 import { useENSName, useAllTransactions } from './state-hooks'
 import { shortenAddress, newTransactionsFirst, isTransactionRecent } from './utils'
-import { Web3StatusActions } from './Web3Status.provider'
+import { Web3StatusActions } from './index.provider'
 
 import {
   Web3StatusConnected,
@@ -13,10 +13,16 @@ import {
   Web3StatusConnect,
   RowBetween,
 } from './index.styles'
-import { Loader } from '../common/Loader'
-import { WalletModal } from './WalletModal'
-import { StatusIcon } from './StatusIcon'
-
+import { Loader } from './components/common/Loader'
+import { WalletModal } from './components/WalletModal'
+import { StatusIcon } from './components/StatusIcon'
+export * from './index.manager'
+export * from './index.provider'
+export * from './updaters'
+export * from './components/URLWarning'
+export * from './components/CurrentBlockNumber'
+export * from './components/Popups'
+export * from './utils/getLibrary'
 
 export function Web3Status() {
   const { active, account, connector, error } = useWeb3React()
@@ -72,3 +78,4 @@ export function Web3Status() {
     </>
   )
 }
+

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import useCopyClipboard from '../hooks/useCopyClipboard'
+import useCopyClipboard from '../../hooks/useCopyClipboard'
 
 import { CheckCircle, Copy as CopyI } from 'react-feather'
 

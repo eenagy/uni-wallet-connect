@@ -1,6 +1,6 @@
 import { StrictMode, Component } from 'react'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
-import { getLibrary } from '../components/Web3Status/utils/getLibrary'
+import { getLibrary } from '../components/Web3Status'
 import { NetworkContextName } from '../components/Web3Status/constants'
 import '../styles/global.css'
 

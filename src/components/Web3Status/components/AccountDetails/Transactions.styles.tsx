@@ -1,5 +1,5 @@
 import { HTMLProps, ReactNode } from 'react'
-import { ExternalLink } from '../../common/ExternalLink'
+import { ExternalLink } from '../common/ExternalLink'
 
 
 export const TransactionStatusText = ({ children, id }: { children: ReactNode; id?: string }) => {

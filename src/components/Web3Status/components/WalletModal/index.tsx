@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, ReactNode } from 'react'
 import { useWeb3React } from '@web3-react/core'
 
-import { fortmatic } from '../connectors'
-import { OVERLAY_READY } from '../connectors/Fortmatic'
-import usePrevious from '../hooks/usePrevious'
-import { Web3StatusState, Web3StatusActions } from '../Web3Status.provider'
+import { fortmatic } from '../../connectors'
+import { OVERLAY_READY } from '../../connectors/Fortmatic'
+import usePrevious from '../../hooks/usePrevious'
+import { Web3StatusState, Web3StatusActions } from '../../index.provider'
 
-import { Modal } from '../../common/Modal'
+import { Modal } from '../common/Modal'
 import { ModalContent } from './ModalContent'
 
 interface Props {

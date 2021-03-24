@@ -1,4 +1,4 @@
-import { Loader } from '../../common/Loader'
+import { Loader } from '../common/Loader'
 import { ReactNode } from 'react'
 import clsx from 'clsx'
 

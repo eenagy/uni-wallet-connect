@@ -2,10 +2,10 @@ import React, { useCallback, useContext } from 'react'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ExternalLink as LinkIcon } from 'react-feather'
 
-import { useActiveWeb3React } from '../state-hooks'
-import { shortenAddress, getEtherscanLink } from '../utils'
-import { injected, walletlink } from '../connectors'
-import { SUPPORTED_WALLETS } from '../constants'
+import { useActiveWeb3React } from '../../state-hooks'
+import { shortenAddress, getEtherscanLink } from '../../utils'
+import { injected, walletlink } from '../../connectors'
+import { SUPPORTED_WALLETS } from '../../constants'
 
 import { StatusIcon } from '../StatusIcon'
 import { Copy } from './Copy'
@@ -29,7 +29,7 @@ import {
 } from './AccountDetails.styles'
 // TODO:style
 import { LinkStyledButton } from '../../../theme'
-import { Web3StatusActions } from '../Web3Status.provider'
+import { Web3StatusActions } from '../../index.provider'
 
 function getName(connector: AbstractConnector | undefined) {
   // @ts-ignore

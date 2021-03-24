@@ -1,4 +1,4 @@
-import { ExternalLink } from '../../common/ExternalLink'
+import { ExternalLink } from '../common/ExternalLink'
 import { AccountDetails } from '../AccountDetails/AccountDetails'
 import { PendingView } from './PendingView'
 import {
@@ -12,12 +12,12 @@ import {
   Blurb,
 } from './ModalContent.styles'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
-import { WALLET_VIEWS } from '../constants'
+import { WALLET_VIEWS } from '../../constants'
 import { Options } from './Options'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useEffect, useState, useContext } from 'react'
-import { Web3StatusState } from '../Web3Status.provider'
-import usePrevious from '../hooks/usePrevious'
+import { Web3StatusState } from '../../index.provider'
+import usePrevious from '../../hooks/usePrevious'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 
 interface Props {

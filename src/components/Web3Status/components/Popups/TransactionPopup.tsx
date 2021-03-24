@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
 import { AlertCircle, CheckCircle } from 'react-feather'
-import { useActiveWeb3React } from '../state-hooks'
-import { ExternalLink } from '../../common/ExternalLink'
-import { getEtherscanLink } from '../utils'
+import { useActiveWeb3React } from '../../state-hooks'
+import { ExternalLink } from '../common/ExternalLink'
+import { getEtherscanLink } from '../../utils'
 
 const RowNoFlex = ({children}: {children: ReactNode}) => {
   return <div className='flex flex-row items-center justify-start w-full'>{children}</div>

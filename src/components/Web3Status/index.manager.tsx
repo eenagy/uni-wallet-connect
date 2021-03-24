@@ -4,13 +4,13 @@ import { useWeb3React } from '@web3-react/core'
 import { network } from './connectors'
 import { useEagerConnect, useInactiveListener } from './state-hooks/connect'
 import { NetworkContextName } from './constants'
-import { Loader } from '../common/Loader'
+import { Loader } from './components/common/Loader'
 
 const MessageWrapper = ({children}: {children:ReactNode}) => {
   return <div className='flex items-center justify-center h-80'>{children}</div>
 }
 
-export function Web3ReactManager({ children }: { children: JSX.Element }) {
+export function Web3StatusManager({ children }: { children: JSX.Element }) {
   const { active } = useWeb3React()
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React(NetworkContextName)
 

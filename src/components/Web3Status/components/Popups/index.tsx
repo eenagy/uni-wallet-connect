@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React, { ReactNode, useContext } from 'react'
-import { Popup } from '../types'
-import { Web3StatusState } from '../Web3Status.provider'
+import { Popup } from '../../types'
+import { Web3StatusState } from '../../index.provider'
 import { PopupItem } from './PopupItem'
 
 

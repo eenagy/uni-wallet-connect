@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useActiveWeb3React } from '../state-hooks'
 import { TransactionDetails } from '../types'
-import { Web3StatusState } from '../Web3Status.provider'
+import { Web3StatusState } from '../index.provider'
 
 // returns all the transactions for the current chain
 export function useAllTransactions(): { [txHash: string]: TransactionDetails } {

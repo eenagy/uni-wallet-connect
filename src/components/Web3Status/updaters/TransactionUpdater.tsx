@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { useActiveWeb3React, useBlockNumber } from '../state-hooks'
-import { Web3StatusActions, Web3StatusState } from '../Web3Status.provider'
+import { Web3StatusActions, Web3StatusState } from '../index.provider'
 
 export function shouldCheck(
   lastBlockNumber: number,

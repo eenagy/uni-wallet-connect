@@ -1,5 +1,5 @@
 import React from 'react'
-import { useActiveWeb3React } from './state-hooks'
+import { useActiveWeb3React } from '../state-hooks'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 
 export function Identicon() {
