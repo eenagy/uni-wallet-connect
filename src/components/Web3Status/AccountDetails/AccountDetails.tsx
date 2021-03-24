@@ -9,7 +9,7 @@ import { injected, walletlink } from '../connectors'
 import { SUPPORTED_WALLETS } from '../constants'
 
 import { AutoRow } from '../../common/Row'
-import { StatusIcon, WalletAction } from '../StatusIcon'
+import { StatusIcon } from '../StatusIcon'
 import { Copy } from './Copy'
 import { Transaction } from './Transaction'
 import { TYPE } from '../../../theme'
@@ -20,7 +20,6 @@ import {
   UpperSection,
   CloseIcon,
   HeaderRow,
-  YourAccount,
   AccountSection,
   CloseColor,
   InfoCard,
@@ -28,6 +27,7 @@ import {
   AccountControl,
   AddressLink,
   LowerSection,
+  WalletAction,
 } from './AccountDetails.styles'
 import { LinkStyledButton } from '../../../theme'
 import { Web3StatusActions } from '../Web3Status.provider'
@@ -76,86 +76,44 @@ export function AccountDetails({
         </CloseIcon>
         <HeaderRow>Account</HeaderRow>
         <AccountSection>
-          <YourAccount>
-            <InfoCard>
-              <AccountGroupingRow>
-                <WalletName>Connected with {getName(connector)}</WalletName>
-                <div>
-                  {connector !== injected && connector !== walletlink && (
-                    <WalletAction
-                      style={{ fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
-                      onClick={() => {
-                        ;(connector as any).close()
-                      }}
-                    >
-                      Disconnect
-                    </WalletAction>
-                  )}
-                  <WalletAction style={{ fontSize: '.825rem', fontWeight: 400 }} onClick={openOptions}>
-                    Change
+          <InfoCard>
+            <AccountGroupingRow>
+              <WalletName>Connected with {getName(connector)}</WalletName>
+              <div className="flex flex-row">
+                {connector !== injected && connector !== walletlink && (
+                  <WalletAction
+                    onClick={() => {
+                      ;(connector as any).close()
+                    }}
+                  >
+                    Disconnect
                   </WalletAction>
-                </div>
-              </AccountGroupingRow>
-              <AccountGroupingRow id="web3-account-identifier-row">
-                <AccountControl>
-                  {ENSName ? (
-                    <div>
-                      <StatusIcon connector={connector} end />
-                      <p> {ENSName}</p>
-                    </div>
-                  ) : (
-                    <div>
-                      <StatusIcon connector={connector} end />
-                      <p> {account && shortenAddress(account)}</p>
-                    </div>
-                  )}
-                </AccountControl>
-              </AccountGroupingRow>
-              <AccountGroupingRow>
-                {ENSName ? (
-                  <AccountControl>
-                    <div>
-                      {account && (
-                        <Copy toCopy={account}>
-                          <span style={{ marginLeft: '4px' }}>Copy Address</span>
-                        </Copy>
-                      )}
-                      {chainId && account && (
-                        <AddressLink
-                          hasENS={!!ENSName}
-                          isENS={true}
-                          href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
-                        >
-                          <LinkIcon size={16} />
-                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
-                        </AddressLink>
-                      )}
-                    </div>
-                  </AccountControl>
-                ) : (
-                  <AccountControl>
-                    <div>
-                      {account && (
-                        <Copy toCopy={account}>
-                          <span style={{ marginLeft: '4px' }}>Copy Address</span>
-                        </Copy>
-                      )}
-                      {chainId && account && (
-                        <AddressLink
-                          hasENS={!!ENSName}
-                          isENS={false}
-                          href={getEtherscanLink(chainId, account, 'address')}
-                        >
-                          <LinkIcon size={16} />
-                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
-                        </AddressLink>
-                      )}
-                    </div>
-                  </AccountControl>
                 )}
-              </AccountGroupingRow>
-            </InfoCard>
-          </YourAccount>
+                <WalletAction onClick={openOptions}>Change</WalletAction>
+              </div>
+            </AccountGroupingRow>
+            <AccountGroupingRow id="web3-account-identifier-row">
+              <AccountControl>
+                <div className='mr-2'><StatusIcon connector={connector} end /></div>
+                <p> {ENSName ? ENSName : account && shortenAddress(account)}</p>
+              </AccountControl>
+            </AccountGroupingRow>
+            <AccountGroupingRow>
+              <AccountControl>
+                {account && (
+                  <Copy toCopy={account}>
+                    <span style={{ marginLeft: '4px' }}>Copy Address</span>
+                  </Copy>
+                )}
+                {chainId && account && (
+                  <AddressLink href={chainId && getEtherscanLink(chainId, ENSName || account, 'address')}>
+                    <LinkIcon size={16} />
+                    <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
+                  </AddressLink>
+                )}
+              </AccountControl>
+            </AccountGroupingRow>
+          </InfoCard>
         </AccountSection>
       </UpperSection>
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (

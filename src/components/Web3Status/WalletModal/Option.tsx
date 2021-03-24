@@ -6,7 +6,6 @@ import {
   OptionCardLeft,
   HeaderText,
   SubHeader,
-  CircleWrapper,
   GreenCircle,
   IconWrapper,
 } from './Option.syles'
@@ -14,8 +13,7 @@ import {
 interface Props {
   link?: string | null
   clickable?: boolean
-  size?: number | null
-  onClick?: null | (() => void)
+  onClick?: () => void
   color: string
   header: React.ReactNode
   subheader: React.ReactNode | null
@@ -27,33 +25,23 @@ interface Props {
 export function Option({
   link = null,
   clickable = true,
-  size,
-  onClick = null,
-  color,
+  onClick,
   header,
-  subheader = null,
   icon,
   active = false,
   id,
+  subheader
 }: Props) {
   const content = (
     <OptionCardClickable id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       <OptionCardLeft>
-        <HeaderText color={color}>
-          {active ? (
-            <CircleWrapper>
-              <GreenCircle>
-                <div />
-              </GreenCircle>
-            </CircleWrapper>
-          ) : (
-            ''
-          )}
+        <HeaderText>
+          {active && <GreenCircle />}
           {header}
         </HeaderText>
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>
-      <IconWrapper size={size}>
+      <IconWrapper>
         <Image src={icon} alt={'Icon'} width="24px" height="24px" />
       </IconWrapper>
     </OptionCardClickable>

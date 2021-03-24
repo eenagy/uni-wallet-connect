@@ -28,7 +28,7 @@ const Wrapper = ({ children }: { children: ReactNode}) => {
 
 export function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }: Props) {
   // important that these are destructed from the account-specific web3-react context
-  const { account, connector, error } = useWeb3React()
+  const { account, connector } = useWeb3React()
   const { application: {modalOpen }} = useContext(Web3StatusState)
   const { toggleModal } = useContext(Web3StatusActions)
 

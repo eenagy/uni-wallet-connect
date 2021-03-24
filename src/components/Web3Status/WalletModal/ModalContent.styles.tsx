@@ -1,13 +1,12 @@
-import styled from 'styled-components'
 import { X as Close } from 'react-feather'
 import { ReactNode } from 'react'
-
+import clsx from 'clsx'
 
 export const CloseIcon = ({ children, onClick }: { children: ReactNode , onClick: () => void }) => {
   return (
     <button
       onClick={onClick}
-      className="absolute r-4 t-4  hover:cursor-pointer hover:opacity-60"
+      className="absolute right-4 top-4 hover:cursor-pointer hover:opacity-60"
     >
       {children}
     </button>
@@ -15,12 +14,11 @@ export const CloseIcon = ({ children, onClick }: { children: ReactNode , onClick
 }
 
 
-// @ts-ignore
-export const CloseColor = styled(Close)`
-  path {
-    stroke: ${({ theme }) => theme.text4};
-  }
-`
+export const CloseColor = () => {
+  return (
+    <Close className='closeButton'/>
+  )
+}
 
 export const Wrapper = ({ children }: { children: ReactNode}) => {
   return (
@@ -32,69 +30,58 @@ export const Wrapper = ({ children }: { children: ReactNode}) => {
   )
 }
 
+export const HeaderRow = ({children, isBlue}: {children: ReactNode, isBlue?: boolean}) => {
+  return <div className={clsx(isBlue && 'text-blue-500', 'p-4 font-medium')}>{children}</div>
+}
 
-export const HeaderRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  padding: 1rem 1rem;
-  font-weight: 500;
-  color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding: 1rem;
-  `};
-`
+export const ContentWrapper = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className="p-3 md:p-6 rounded-b-2xl"
+    >
+      {children}
+    </div>
+  )
+}
 
-export const ContentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg2};
-  padding: 2rem;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
 
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
-`
+export const UpperSection = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className="relative"
+    >
+      {children}
+    </div>
+  )
+}
 
-export const UpperSection = styled.div`
-  position: relative;
+export const Blurb = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className="flex flex-row flex-wrap items-center justify-center m-4 text-xs md:text-base md:m-0 md:mt-8"
+    >
+      {children}
+    </div>
+  )
+}
 
-  h5 {
-    margin: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-  }
+export const OptionGrid = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className="grid grid-cols-1 gap-3 md:grid-cols-none"
+    >
+      {children}
+    </div>
+  )
+}
 
-  h5:last-child {
-    margin-bottom: 0px;
-  }
-
-  h4 {
-    margin-top: 0;
-    font-weight: 500;
-  }
-`
-
-export const Blurb = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    margin: 1rem;
-    font-size: 12px;
-  `};
-`
-
-export const OptionGrid = styled.div`
-  display: grid;
-  grid-gap: 10px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    grid-template-columns: 1fr;
-    grid-gap: 10px;
-  `};
-`
-
-export const HoverText = styled.div`
-  :hover {
-    cursor: pointer;
-  }
-`
+export const HoverText = ({ children, onClick }: { children: ReactNode, onClick?: () => void }) => {
+  return (
+    <button
+      className="cursor-pointer"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+}

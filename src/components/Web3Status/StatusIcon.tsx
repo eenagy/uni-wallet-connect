@@ -3,65 +3,76 @@ import styled from 'styled-components'
 import { fortmatic, injected, portis, walletconnect, walletlink } from './connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Image from 'next/image'
-import { ButtonSecondary } from '../common/Button'
+import { ReactNode } from 'react'
+import clsx from 'clsx'
 
 // TODO try out different connectors
-export const WalletAction = styled(ButtonSecondary)`
-  width: fit-content;
-  font-weight: 400;
-  margin-left: 8px;
-  font-size: 0.825rem;
-  padding: 4px 6px;
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
+const ButtonSecondary = styled.div`
+  background-color: transparent;
+  font-size: 16px;
+  border-radius: 12px;
+
+  &:focus {
+    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
+    border: 1px solid ${({ theme }) => theme.primary3};
+  }
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.primary3};
+  }
+  &:active {
+    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
+    border: 1px solid ${({ theme }) => theme.primary3};
+  }
+  &:disabled {
+    opacity: 50%;
+    cursor: auto;
+  }
+  a:hover {
+    text-decoration: none;
   }
 `
-export const MainWalletAction = styled(WalletAction)`
-  color: ${({ theme }) => theme.primary1};
-`
-export const IconWrapper = styled.div<{ size?: number; end?: boolean }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  margin-right: ${({ end }) => (end ? '8px' : '')};
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + 'px' : '32px')};
-    width: ${({ size }) => (size ? size + 'px' : '32px')};
-  }
-  ${({ theme, end }) =>
-    end
-      ? theme.mediaWidth.upToMedium`
-    align-items: flex-end;
-  `
-      : ''};
-`
+export const MainWalletAction = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="p-2 ml-2 text-sm font-normal text-pink-500 border border-pink-200 border-solid rounded-md hover:cursor-pointer focus:shadow-md focus:border-pink-300 hover:border-pink-300 active:shadow-md active:border-pink-300"
+      style={{ width: 'fit-content' }}
+    >
+      {children}
+    </button>
+  )
+}
+
+export const IconWrapper = ({ children, end }: { children: ReactNode; end?: boolean }) => {
+  return (
+    <div className={clsx('flex flex-col items-center justify-center w-4 h-4', end && 'items-end mr-2')}>{children}</div>
+  )
+}
 export function StatusIcon({ connector, end }: { connector?: AbstractConnector; end?: boolean }) {
   if (connector === injected) {
     return <Identicon />
   } else if (connector === walletconnect) {
     return (
-      <IconWrapper size={16} end={end}>
-        <Image src={'/assets/images/walletConnectIcon.svg'} alt={''} layout="fill" />
+      <IconWrapper end={end}>
+        <Image src={'/assets/images/walletConnectIcon.svg'} alt={''} width={16} height={16} />
       </IconWrapper>
     )
   } else if (connector === walletlink) {
     return (
-      <IconWrapper size={16} end={end}>
-        <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={''} layout="fill" />
+      <IconWrapper end={end}>
+        <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={''} width={16} height={16} />
       </IconWrapper>
     )
   } else if (connector === fortmatic) {
     return (
-      <IconWrapper size={16} end={end}>
-        <Image src={'/assets/images/fortmaticIcon.png'} alt={''} layout="fill" />
+      <IconWrapper end={end}>
+        <Image src={'/assets/images/fortmaticIcon.png'} alt={''} width={16} height={16} />
       </IconWrapper>
     )
   } else if (connector === portis) {
     return (
-      <IconWrapper size={16} end={end}>
-        <Image src={'/assets/images/portisIcon.png'} alt={''} layout="fill" />
+      <IconWrapper end={end}>
+        <Image src={'/assets/images/portisIcon.png'} alt={''} width="16px" height="16px" />
         {end && (
           <MainWalletAction
             onClick={() => {
@@ -74,5 +85,5 @@ export function StatusIcon({ connector, end }: { connector?: AbstractConnector; 
       </IconWrapper>
     )
   }
-  return null
+  return null;
 }

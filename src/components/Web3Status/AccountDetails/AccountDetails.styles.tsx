@@ -1,151 +1,102 @@
-import styled from 'styled-components'
 import { X as Close } from 'react-feather'
 import { ExternalLink } from '../../../theme'
+import { HTMLProps, ReactNode } from 'react'
 
-export const HeaderRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  padding: 1rem 1rem;
-  font-weight: 500;
-  color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding: 1rem;
-  `};
-`
+export const HeaderRow = ({ children }: { children: ReactNode }) => {
+  return <div className="flex flex-row p-4 font-medium color-pink-500">{children}</div>
+}
 
-export const UpperSection = styled.div`
-  position: relative;
+export const UpperSection = ({ children }: { children: ReactNode }) => {
+  return <div className="relative">{children}</div>
+}
 
-  h5 {
-    margin: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-  }
+export const InfoCard = ({ children }: { children: ReactNode }) => {
+  return <div className="relative grid p-5 mb-5 border border-gray-200 rounded-xl boder-solid gap-x-3">{children}</div>
+}
 
-  h5:last-child {
-    margin-bottom: 0px;
-  }
+export const AccountGroupingRow = ({ children, id }: { children: ReactNode; id?: string }) => {
+  return (
+    <div className="flex flex-row items-center justify-between font-normal text-black" id={id}>
+      {children}
+    </div>
+  )
+}
 
-  h4 {
-    margin-top: 0;
-    font-weight: 500;
-  }
-`
+export const AccountSection = ({ children, id }: { children: ReactNode; id?: string }) => {
+  return (
+    <div className="pt-4 pb-4 pl-6 md:p-4" id={id}>
+      {children}
+    </div>
+  )
+}
 
-export const InfoCard = styled.div`
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
-  border-radius: 20px;
-  position: relative;
-  display: grid;
-  grid-row-gap: 12px;
-  margin-bottom: 20px;
-`
+export const LowerSection = ({ children, id }: { children: ReactNode; id?: string }) => {
+  return (
+    <div className="flex flex-col flex-grow p-6 overflow-auto bg-gray-200 rounded-b-2xl" id={id}>
+      {children}
+    </div>
+  )
+}
 
-export const AccountGroupingRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text1};
+export const AccountControl = ({ children, id }: { children: ReactNode; id?: string }) => {
+  return (
+    <div className="flex flex-row items-center w-full pb-2 text-lg font-medium" id={id}>
+      {children}
+    </div>
+  )
+}
 
-  div {
-    ${({ theme }) => theme.flexRowNoWrap}
-    align-items: center;
-  }
-`
+export const AddressLink = ({
+  ...rest
+}: Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> & { href: string }) => {
+  return (
+    <ExternalLink
+      className="flex flex-row items-center flex-shrink-0 ml-4 text-sm font-medium text-gray-400 no-underline cursor-pointer justify-content hover:text-gray-600 focus:text-gray-600 active:text-gray-600"
+      {...rest}
+    />
+  )
+}
+// TODO duplication
+export const CloseIcon = ({ children, onClick }: { children: ReactNode , onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute right-4 top-4 hover:cursor-pointer hover:opacity-60"
+    >
+      {children}
+    </button>
+  )
+}
 
-export const AccountSection = styled.div`
-  background-color: ${({ theme }) => theme.bg1};
-  padding: 0rem 1rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0rem 1rem 1.5rem 1rem;`};
-`
+// TODO duplicaion
+export const CloseColor = () => {
+  return (
+    <Close className='closeButton'/>
+  )
+}
 
-export const YourAccount = styled.div`
-  h5 {
-    margin: 0 0 1rem 0;
-    font-weight: 400;
-  }
+export const WalletName = ({ children }: { children: ReactNode }) => {
+  return <div className="text-sm font-medium text-gray-500">{children}</div>
+}
 
-  h4 {
-    margin: 0;
-    font-weight: 500;
-  }
-`
 
-export const LowerSection = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  padding: 1.5rem;
-  flex-grow: 1;
-  overflow: auto;
-  background-color: ${({ theme }) => theme.bg2};
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-
-  h5 {
-    margin: 0;
-    font-weight: 400;
-    color: ${({ theme }) => theme.text3};
-  }
-`
-
-export const AccountControl = styled.div`
-  display: flex;
-  justify-content: space-between;
-  min-width: 0;
-  width: 100%;
-
-  font-weight: 500;
-  font-size: 1.25rem;
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  p {
-    min-width: 0;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-`
-
-export const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
-  font-size: 0.825rem;
-  color: ${({ theme }) => theme.text3};
-  margin-left: 1rem;
-  font-size: 0.825rem;
-  display: flex;
-  :hover {
-    color: ${({ theme }) => theme.text2};
-  }
-`
-
-export const CloseIcon = styled.div`
-  position: absolute;
-  right: 1rem;
-  top: 14px;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.6;
-  }
-`
-
-// @ts-ignore
-export const CloseColor = styled(Close)`
-  path {
-    stroke: ${({ theme }) => theme.text4};
-  }
-`
-
-export const WalletName = styled.div`
-  width: initial;
-  font-size: 0.825rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text3};
-`
-
-export const TransactionListWrapper = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap};
-`
+export const TransactionListWrapper = ({ children }: { children: ReactNode }) => {
+  return (
+    <button
+      className="flex flex-col"
+    >
+      {children}
+    </button>
+  )
+}
+export const WalletAction = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="p-2 px-1 py-2 ml-2 text-sm font-normal text-pink-500 border border-pink-300 border-solid rounded-md hover:cursor-pointer focus:shadow-md focus:border-pink-500 hover:border-pink-500 active:shadow-md active:border-pink-500 "
+      style={{ width: 'fit-content' }}
+    >
+      {children}
+    </button>
+  )
+}

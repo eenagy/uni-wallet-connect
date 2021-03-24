@@ -1,59 +1,43 @@
-import styled from 'styled-components'
-import { darken } from 'polished'
 import { Loader } from '../../common/Loader'
+import { ReactNode } from 'react'
+import clsx from 'clsx'
 
-export const PendingSection = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  & > * {
-    width: 100%;
-  }
-`
+export const PendingSection = ({ children }: { children: ReactNode }) => {
+  return <div className="flex flex-col items-center justify-center w-full">{children}</div>
+}
 
-export const StyledLoader = styled(Loader)`
-  margin-right: 1rem;
-`
+export const StyledLoader = () => {
+  return <Loader className="mr-4" />
+}
 
-export const LoadingMessage = styled.div<{ error?: boolean }>`
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  color: ${({ theme, error }) => (error ? theme.red1 : 'inherit')};
-  border: 1px solid ${({ theme, error }) => (error ? theme.red1 : theme.text4)};
+export const LoadingMessage = ({ children, hasError }: { children: ReactNode; hasError?: boolean }) => {
+  return (
+    <div
+      className={clsx(
+        hasError && 'color-red-500 border-red-500',
+        'flex flex-row items-center justify-start w-full p-4 mb-5 border border-gray-200 border-solid rounded-md'
+      )}
+    >
+      {children}
+    </div>
+  )
+}
 
-  & > * {
-    padding: 1rem;
-  }
-`
+export const ErrorGroup = ({ children }: { children: ReactNode }) => {
+  return <div className="flex flex-row items-center justify-between w-full">{children}</div>
+}
 
-export const ErrorGroup = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-  justify-content: flex-start;
-`
+export const ErrorButton = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="justify-end p-2 ml-4 text-sm font-semibold bg-gray-200 rounded-md select-none color-black hover:cursor-pointer hover:bg-gray-400"
+    >
+      {children}
+    </button>
+  )
+}
 
-export const ErrorButton = styled.div`
-  border-radius: 8px;
-  font-size: 12px;
-  color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg4};
-  margin-left: 1rem;
-  padding: 0.5rem;
-  font-weight: 600;
-  user-select: none;
-
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => darken(0.1, theme.text4)};
-  }
-`
-
-export const LoadingWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-  justify-content: center;
-`
+export const LoadingWrapper = ({ children }: { children: ReactNode }) => {
+  return <div className="flex flex-row items-center w-full justify-content">{children}</div>
+}

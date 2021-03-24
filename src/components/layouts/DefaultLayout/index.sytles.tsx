@@ -5,13 +5,13 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
 }
 
 export const HeaderWrapper = ({ children }: { children: ReactNode }) => {
-  return <div className="w-full justify-between">{children}</div>
+  return <div className="justify-between w-full">{children}</div>
 }
 
 export const BodyWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      className="flex flex-col w-full items-center flex-1 overflow-y-auto overflow-x-hidden z-0 p-4 pt-5 md:p-4 md:pt-5"
+      className="z-0 flex flex-col items-center flex-1 w-full p-4 pt-5 overflow-x-hidden overflow-y-auto md:p-4 md:pt-5"
       style={{ paddingTop: '100px' }}
     >
       {children}

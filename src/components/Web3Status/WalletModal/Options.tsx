@@ -57,7 +57,7 @@ export function Options({ connector, tryActivation, setWalletView }: Props) {
                   key={key}
                   color={'#E8831D'}
                   header={'Install Metamask'}
-                  subheader={null}
+                  subheader={option.description}
                   link={'https://metamask.io/'}
                   icon={'/assets/images/metamask.png'}
                 />
@@ -92,7 +92,7 @@ export function Options({ connector, tryActivation, setWalletView }: Props) {
               color={option.color}
               link={option.href}
               header={option.name}
-              subheader={null} //use option.descriptio to bring back multi-line
+              subheader={option.description} //use option.descriptio to bring back multi-line
               icon={'/assets/images/' + option.iconName}
             />
           )

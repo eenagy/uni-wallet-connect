@@ -12,7 +12,7 @@ import {
   Blurb,
 } from './ModalContent.styles'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
-import { SUPPORTED_WALLETS, WALLET_VIEWS } from '../constants'
+import { WALLET_VIEWS } from '../constants'
 import { Options } from './Options'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useEffect, useState, useContext } from 'react'
@@ -21,28 +21,25 @@ import usePrevious from '../hooks/usePrevious'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 
 interface Props {
-    toggleModal: () => void;
-    pendingTransactions: string[];
-    confirmedTransactions: string[];
-    ENSName?: string;
-    connector?: AbstractConnector,
+  toggleModal: () => void
+  pendingTransactions: string[]
+  confirmedTransactions: string[]
+  ENSName?: string
+  connector?: AbstractConnector
 }
 
-export function ModalContent({
-  toggleModal,
-  pendingTransactions,
-  confirmedTransactions,
-  ENSName,
-}: Props) {
+export function ModalContent({ toggleModal, pendingTransactions, confirmedTransactions, ENSName }: Props) {
   const { active, account, connector, activate, error } = useWeb3React()
-  const { application: {modalOpen }} = useContext(Web3StatusState)
+  const {
+    application: { modalOpen },
+  } = useContext(Web3StatusState)
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
 
-   // always reset to account view
-   useEffect(() => {
+  // always reset to account view
+  useEffect(() => {
     if (modalOpen) {
       setPendingError(false)
       setWalletView(WALLET_VIEWS.ACCOUNT)
@@ -60,13 +57,12 @@ export function ModalContent({
 
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     // TODO lookup web3
-    let name = ''
-    Object.keys(SUPPORTED_WALLETS).map((key) => {
-      if (connector === SUPPORTED_WALLETS[key].connector) {
-        return (name = SUPPORTED_WALLETS[key].name)
-      }
-      return true
-    })
+    // const name = Object.keys(SUPPORTED_WALLETS).find((key) => {
+    //   if (connector === SUPPORTED_WALLETS[key].connector) {
+    //     return SUPPORTED_WALLETS[key].name
+    //   }
+    //   return true
+    // })
 
     setPendingWallet(connector) // set wallet for pending view
     setWalletView(WALLET_VIEWS.PENDING)
@@ -119,7 +115,7 @@ export function ModalContent({
         <CloseColor />
       </CloseIcon>
       {walletView !== WALLET_VIEWS.ACCOUNT ? (
-        <HeaderRow color="blue">
+        <HeaderRow isBlue>
           <HoverText
             onClick={() => {
               setPendingError(false)
@@ -135,23 +131,25 @@ export function ModalContent({
         </HeaderRow>
       )}
       <ContentWrapper>
-        {walletView === WALLET_VIEWS.PENDING ? (
+     
+        {walletView === WALLET_VIEWS.PENDING && (
           <PendingView
             connector={pendingWallet}
             error={pendingError}
             setPendingError={setPendingError}
             tryActivation={tryActivation}
           />
-        ) : (
-          <OptionGrid>
-            <Options {...{ connector, tryActivation, setWalletView }} />
-          </OptionGrid>
         )}
         {walletView !== WALLET_VIEWS.PENDING && (
-          <Blurb>
-            <span>New to Ethereum? &nbsp;</span>{' '}
-            <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
-          </Blurb>
+          <>
+            <OptionGrid>
+              <Options {...{ connector, tryActivation, setWalletView }} />
+            </OptionGrid>
+            <Blurb>
+              <span>New to Ethereum? &nbsp;</span>
+              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
+            </Blurb>
+          </>
         )}
       </ContentWrapper>
     </UpperSection>

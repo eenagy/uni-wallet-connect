@@ -1,30 +1,23 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { ReactNode } from 'react'
 import useCopyClipboard from '../hooks/useCopyClipboard'
 
-import { LinkStyledButton } from '../../../theme'
 import { CheckCircle, Copy as CopyI } from 'react-feather'
 
-const CopyIcon = styled(LinkStyledButton)`
-  color: ${({ theme }) => theme.text3};
-  flex-shrink: 0;
-  display: flex;
-  text-decoration: none;
-  font-size: 0.825rem;
-  :hover,
-  :active,
-  :focus {
-    text-decoration: none;
-    color: ${({ theme }) => theme.text2};
-  }
-`
-const TransactionStatusText = styled.span`
-  margin-left: 0.25rem;
-  font-size: 0.825rem;
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-`
 
+export const CopyIcon = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  return (
+    <div
+      className="flex flex-shrink-0 text-sm font-medium text-gray-400 no-underline cursor-pointer hover:text-gray-600 focus:text-gray-600 active:text-gray-600"
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  )
+}
+
+export const TransactionStatusText = ({ children, id }: { children: ReactNode, id?: string }) => {
+  return <div className="flex flex-row items-center ml-1 text-sm" id={id}>{children}</div>
+}
 export function Copy(props: { toCopy: string; children?: React.ReactNode }) {
   const [isCopied, setCopied] = useCopyClipboard()
 

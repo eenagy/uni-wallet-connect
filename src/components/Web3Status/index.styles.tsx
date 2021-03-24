@@ -5,9 +5,9 @@ import clsx from 'clsx'
 export const Web3StatusError = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
   return (
     <div
-      className="w-full flex items-center p-2 rounded-lg cursor-pointer select-none focus:outline-none
-                    bg-red-500 border border-solid border-red-500 text-white
-                    font-medium hover:bg-red-600 focus:bg-red-600"
+      className="flex items-center w-full p-2 font-medium bg-red-500 border border-red-500 border-solid rounded-lg cursor-pointer select-none focus:outline-none
+  text-white
+ hover:bg-red-600 focus:bg-red-600"
       onClick={onClick}
     >
       {children}
@@ -74,7 +74,7 @@ export const Web3StatusConnect = ({
 export const Text = ({ children }: { children: ReactNode }) => {
   return (
     <p
-      className="flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap font-medium text-base mr-2 ml-1"
+      className="flex-1 ml-1 mr-2 overflow-hidden text-base font-medium overflow-ellipsis whitespace-nowrap"
       style={{ width: 'fit-content' }}
     >
       {children}
@@ -83,5 +83,5 @@ export const Text = ({ children }: { children: ReactNode }) => {
 }
 
 export const NetworkIcon = () => {
-  return <Activity className="w-4 h-4 mr-2 ml-1" />
+  return <Activity className="w-4 h-4 ml-1 mr-2" />
 }

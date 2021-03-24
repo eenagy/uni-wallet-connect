@@ -19,7 +19,7 @@ interface Props {
   tryActivation: (connector: AbstractConnector) => void
 }
 
-function filterWallet(connector: AbstractConnector | undefined, isMetamask: boolean){
+function filterWallet(connector: AbstractConnector | undefined, isMetamask: boolean) {
   return (key: string) => {
     const option = SUPPORTED_WALLETS[key]
     if (option.connector === connector) {
@@ -36,36 +36,34 @@ function filterWallet(connector: AbstractConnector | undefined, isMetamask: bool
     return false
   }
 }
-export function PendingView({ connector, error = false, setPendingError, tryActivation }: Props) {
+export function PendingView({ connector, error = true, setPendingError, tryActivation }: Props) {
   // @ts-ignore
   const isMetamask = window?.ethereum?.isMetaMask
   const supportedWallets = useMemo(() => {
     return Object.keys(SUPPORTED_WALLETS).filter(filterWallet(connector, isMetamask))
   }, [isMetamask, connector])
-
   return (
     <PendingSection>
-      <LoadingMessage error={error}>
-        <LoadingWrapper>
-          {error ? (
-            <ErrorGroup>
-              <div>Error connecting.</div>
-              <ErrorButton
-                onClick={() => {
-                  setPendingError(false)
-                  connector && tryActivation(connector)
-                }}
-              >
-                Try Again
-              </ErrorButton>
-            </ErrorGroup>
-          ) : (
-            <>
-              <StyledLoader />
-              Initializing...
-            </>
-          )}
-        </LoadingWrapper>
+      <LoadingMessage hasError={error}>
+        {error && (
+          <ErrorGroup>
+            <div>Error connecting.</div>
+            <ErrorButton
+              onClick={() => {
+                setPendingError(false)
+                connector && tryActivation(connector)
+              }}
+            >
+              Try Again
+            </ErrorButton>
+          </ErrorGroup>
+        )}
+        {!error && (
+          <LoadingWrapper>
+            <StyledLoader />
+            Initializing...
+          </LoadingWrapper>
+        )}
       </LoadingMessage>
       {supportedWallets.map((key) => {
         const option = SUPPORTED_WALLETS[key]
