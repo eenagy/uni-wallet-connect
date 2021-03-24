@@ -1,62 +1,52 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
-import { AutoColumn } from '../../common/Column'
+import clsx from 'clsx'
+import React, { ReactNode, useContext } from 'react'
 import { Popup } from '../types'
 import { Web3StatusState } from '../Web3Status.provider'
 import { PopupItem } from './PopupItem'
 
-const MobilePopupWrapper = styled.div<{ height: string | number }>`
-  position: relative;
-  max-width: 100%;
-  height: ${({ height }) => height};
-  margin: ${({ height }) => (height ? '0 auto;' : 0)};
-  margin-bottom: ${({ height }) => (height ? '20px' : 0)}};
 
-  display: none;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: block;
-  `};
-`
+export const MobilePopupWrapper = ({ children, fitContent }: { children: ReactNode; fitContent?: boolean }) => {
+  return (
+    <div
+      className={clsx(fitContent && 'mx-0 my-auto mb-5', 'relative block max-w-full sm:hidden')}
+      style={{ height: fitContent ? 'fit-content' : 0 }}
+    >
+      {children}
+    </div>
+  )
+}
 
-const MobilePopupInner = styled.div`
-  height: 99%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: row;
-  -webkit-overflow-scrolling: touch;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`
+export const MobilePopupInner = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className='flex overflow-x-auto overflow-y-hidden flew-row' style={{height: '99%'}}>
+      {children}
+    </div>
+  )
+}
 
-const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean }>`
-  position: fixed;
-  top: ${({ extraPadding }) => (extraPadding ? '108px' : '88px')};
-  right: 1rem;
-  max-width: 355px !important;
-  width: 100%;
-  z-index: 3;
-
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: none;
-  `};
-`
-
+export const FixedPopupColumn = ({ children }: { children: ReactNode}) => {
+  return (
+    <div
+      className='fixed z-30 hidden w-full max-w-xs gap-5 top-16 right-4 sm:grid grid-rows-auto'>
+      {children}
+    </div>
+  )
+}
 export function Popups() {
   const {
-    application: { popupList, URLWarningVisible },
+    application: { popupList },
   } = useContext(Web3StatusState)
   const activePopups = popupList.filter(t => t.show)
-
+ 
   return (
     <>
-      <FixedPopupColumn gap="20px" extraPadding={URLWarningVisible}>
+      <FixedPopupColumn>
         {activePopups.map((item: Popup) => (
           <PopupItem key={item.key} content={item.content} popKey={item.key} removeAfterMs={item.removeAfterMs} />
         ))}
       </FixedPopupColumn>
-      <MobilePopupWrapper height={activePopups?.length > 0 ? 'fit-content' : 0}>
+      <MobilePopupWrapper fitContent={activePopups?.length > 0}>
         <MobilePopupInner>
           {activePopups // reverse so new items up front
             .slice(0)

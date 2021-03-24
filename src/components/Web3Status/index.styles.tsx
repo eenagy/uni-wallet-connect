@@ -5,9 +5,7 @@ import clsx from 'clsx'
 export const Web3StatusError = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
   return (
     <div
-      className="flex items-center w-full p-2 font-medium bg-red-500 border border-red-500 border-solid rounded-lg cursor-pointer select-none focus:outline-none
-  text-white
- hover:bg-red-600 focus:bg-red-600"
+      className="flex items-center w-full p-2 font-medium text-white bg-red-500 border border-red-500 border-solid rounded-lg cursor-pointer select-none focus:outline-none hover:bg-red-600 focus:bg-red-600"
       onClick={onClick}
     >
       {children}
@@ -84,4 +82,8 @@ export const Text = ({ children }: { children: ReactNode }) => {
 
 export const NetworkIcon = () => {
   return <Activity className="w-4 h-4 ml-1 mr-2" />
+}
+
+export const RowBetween = ({ children }: { children: ReactNode }) => {
+  return <div className={clsx('p-0 flex w-full items-center justify-between')}>{children}</div>
 }

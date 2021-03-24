@@ -1,48 +1,30 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { ReactNode, useCallback, useContext, useEffect } from 'react'
 import { X } from 'react-feather'
 import { useSpring } from 'react-spring'
-import styled, { ThemeContext } from 'styled-components'
 import { animated } from 'react-spring'
 import { TransactionPopup } from './TransactionPopup'
 import { Web3StatusActions } from '../Web3Status.provider'
-import {PopupContent} from '../types'
+import { PopupContent } from '../types'
 
-export const StyledClose = styled(X)`
-  position: absolute;
-  right: 10px;
-  top: 10px;
+export const StyledClose = ({ onClick }: { onClick: () => void }) => {
+  return <X className="absolute right-3 top-3 hover:cursor-pointer" onClick={onClick}></X>
+}
 
-  :hover {
-    cursor: pointer;
-  }
-`
-export const Popup = styled.div`
-  display: inline-block;
-  width: 100%;
-  padding: 1em;
-  background-color: ${({ theme }) => theme.bg1};
-  position: relative;
-  border-radius: 10px;
-  padding: 20px;
-  padding-right: 35px;
-  overflow: hidden;
+export const Popup = ({ children }: { children: ReactNode }) => {
+  return (
+    <div
+      className="relative inline-block p-4 overflow-hidden bg-white rounded-md md:w-full pr-9"
+      style={{ minWidth: '290px' }}
+    >
+      {children}
+    </div>
+  )
+}
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    min-width: 290px;
-    &:not(:last-of-type) {
-      margin-right: 20px;
-    }
-  `}
-`
-const Fader = styled.div`
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 2px;
-  background-color: ${({ theme }) => theme.bg3};
-`
-
+export const Fader = ({ style: {width = '100%'}, ...rest }: { style: React.CSSProperties }) => {
+  console.log(width)
+  return <div className="absolute left-0 mt-4 bg-gray-200 b-0" style={{ height: '2px', width }} {...rest}/>
+}
 const AnimatedFader = animated(Fader)
 
 export function PopupItem({
@@ -68,7 +50,6 @@ export function PopupItem({
     }
   }, [removeAfterMs, removeThisPopup])
 
-  const theme = useContext(ThemeContext)
 
   let popupContent
   if ('txn' in content) {
@@ -86,7 +67,7 @@ export function PopupItem({
 
   return (
     <Popup>
-      <StyledClose color={theme.text2} onClick={removeThisPopup} />
+      <StyledClose onClick={removeThisPopup} />
       {popupContent}
       {removeAfterMs !== null ? <AnimatedFader style={faderStyle} /> : null}
     </Popup>

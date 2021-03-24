@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { ThemeContext } from 'styled-components'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ExternalLink as LinkIcon } from 'react-feather'
 
@@ -8,11 +7,9 @@ import { shortenAddress, getEtherscanLink } from '../utils'
 import { injected, walletlink } from '../connectors'
 import { SUPPORTED_WALLETS } from '../constants'
 
-import { AutoRow } from '../../common/Row'
 import { StatusIcon } from '../StatusIcon'
 import { Copy } from './Copy'
 import { Transaction } from './Transaction'
-import { TYPE } from '../../../theme'
 
 import {
   TransactionListWrapper,
@@ -28,7 +25,9 @@ import {
   AddressLink,
   LowerSection,
   WalletAction,
+  AutoRow
 } from './AccountDetails.styles'
+// TODO:style
 import { LinkStyledButton } from '../../../theme'
 import { Web3StatusActions } from '../Web3Status.provider'
 
@@ -61,13 +60,11 @@ export function AccountDetails({
   openOptions,
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React()
-  const theme = useContext(ThemeContext)
   const { clearAllTransactions } = useContext(Web3StatusActions)
 
   const clearAllTransactionsCallback = useCallback(() => {
     if (chainId) clearAllTransactions({ chainId })
   }, [chainId])
-
   return (
     <>
       <UpperSection>
@@ -118,9 +115,9 @@ export function AccountDetails({
       </UpperSection>
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
-          <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
-            <TYPE.body>Recent Transactions</TYPE.body>
-            <LinkStyledButton onClick={clearAllTransactionsCallback}>(clear all)</LinkStyledButton>
+          <AutoRow>
+            <p>Recent Transactions</p>
+            <button className='font-medium text-pink-500' onClick={clearAllTransactionsCallback}>(clear all)</button>
           </AutoRow>
           <TransactionListWrapper>
             {pendingTransactions.map((hash, i) => {
@@ -135,7 +132,7 @@ export function AccountDetails({
         </LowerSection>
       ) : (
         <LowerSection>
-          <TYPE.body color={theme.text1}>Your transactions will appear here...</TYPE.body>
+          <p>Your transactions will appear here...</p>
         </LowerSection>
       )}
     </>

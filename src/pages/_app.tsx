@@ -1,5 +1,4 @@
 import { StrictMode, Component } from 'react'
-import { ThemeProvider } from '../theme'
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from '../components/Web3Status/utils/getLibrary'
 import { NetworkContextName } from '../components/Web3Status/constants'
@@ -29,7 +28,7 @@ class ErrorBoundaryWeb3ProviderNetwork extends Component {
     return <Web3ProviderNetwork getLibrary={getLibrary}>{this.props.children}</Web3ProviderNetwork>
   }
 }
-// TODO FIXEDglobalstyle, 
+// TODO FIXEDglobalstyle,
 // TODO ThemedGlobalStyle
 // TODO theme
 export default function App({ Component, pageProps }) {
@@ -37,9 +36,7 @@ export default function App({ Component, pageProps }) {
     <StrictMode>
       <Web3ReactProvider getLibrary={getLibrary}>
         <ErrorBoundaryWeb3ProviderNetwork>
-          <ThemeProvider>
-            <Component {...pageProps} />
-          </ThemeProvider>
+          <Component {...pageProps} />
         </ErrorBoundaryWeb3ProviderNetwork>
       </Web3ReactProvider>
     </StrictMode>

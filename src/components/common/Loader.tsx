@@ -7,7 +7,7 @@ import React from 'react'
  */
 export function Loader({
   size = '16px',
-  stroke,
+  stroke = 'blue',
   ...rest
 }: {
   size?: string
@@ -15,7 +15,7 @@ export function Loader({
   [k: string]: any
 }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='loader' stroke={stroke} style={{
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"  stroke={stroke} style={{
       animation:'2s loader linear infinite',
       height: size,
       width: size,

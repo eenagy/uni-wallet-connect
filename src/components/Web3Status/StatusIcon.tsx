@@ -1,5 +1,4 @@
 import { Identicon } from './Identicon'
-import styled from 'styled-components'
 import { fortmatic, injected, portis, walletconnect, walletlink } from './connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Image from 'next/image'

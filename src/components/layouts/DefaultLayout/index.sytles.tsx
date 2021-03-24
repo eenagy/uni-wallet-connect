@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
-  return <div className="flex flex-col items-start overflow-x-hidden">{children}</div>
+  return <div className="flex flex-col items-start min-h-screen overflow-x-hidden">{children}</div>
 }
 
 export const HeaderWrapper = ({ children }: { children: ReactNode }) => {
@@ -18,6 +18,6 @@ export const BodyWrapper = ({ children }: { children: ReactNode }) => {
     </div>
   )
 }
-export const Marginer = ({ children }: { children: ReactNode }) => {
-  return <div style={{marginTop: '5rem'}}>{children}</div>
+export const Marginer = () => {
+  return <div style={{marginTop: '5rem'}}/>
 }

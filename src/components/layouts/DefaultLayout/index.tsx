@@ -4,7 +4,7 @@ import { Header } from './Header'
 import { Web3StatusProvider } from '../../Web3Status/Web3Status.provider'
 import { AppWrapper, HeaderWrapper, BodyWrapper, Marginer } from './index.sytles'
 import { Updaters } from '../../Web3Status/updaters'
-import { Polling } from '../../Web3Status/Polling'
+import { CurrentBlockNumber } from '../../Web3Status/CurrentBlockNumber'
 import { URLWarning } from '../../Web3Status/URLWarning'
 import { Popups } from '../../Web3Status/Popups'
 
@@ -19,7 +19,7 @@ export function Layout({ children }: { children: JSX.Element }) {
           <Header />
         </HeaderWrapper>
         <BodyWrapper>
-          <Polling />
+          <CurrentBlockNumber />
           <Popups />
           <Web3ReactManager>{children}</Web3ReactManager>
           <Marginer />

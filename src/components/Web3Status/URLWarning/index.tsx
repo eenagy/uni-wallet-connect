@@ -19,26 +19,18 @@ const PhisAlert2 = ({ children, isActive }: { children: ReactNode; isActive: boo
   )
 }
 
+// TODO fix this
 export function URLWarning() {
   const {
     application: { URLWarningVisible },
   } = useContext(Web3StatusState)
   const { toggleURLWarning } = useContext(Web3StatusActions)
-  const hostnameMatch = process.env.browser ? window.location.hostname === APP_URL : true
-  if (isMobile) {
-    return (
-      <PhisAlert2 isActive={URLWarningVisible}>
-        <div className="flex px-2">
-          <AlertTriangle className="mr-1" size={12} /> Make sure the URL is
-          <code style={{ padding: '0 4px', display: 'inline', fontWeight: 'bold' }}>{APP_URL}</code>
-        </div>
-        <button className="cursor-pointer" onClick={toggleURLWarning}>
-          <X size={12} />
-        </button>
-      </PhisAlert2>
-    )
+  if(!process.env.browser){
+    return null;
   }
-  if (!hostnameMatch) {
+  const hostnameMatch = window.location.hostname === APP_URL
+  
+  if (hostnameMatch && !isMobile) {
     return null
   }
   return (

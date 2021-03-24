@@ -1,4 +1,4 @@
-import { ExternalLink } from '../../../theme'
+import { ExternalLink } from '../../common/ExternalLink'
 import { AccountDetails } from '../AccountDetails/AccountDetails'
 import { PendingView } from './PendingView'
 import {

@@ -3,8 +3,7 @@ import { ReactNode } from 'react'
 export const HeaderFrame = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      className="relative top-0 z-10 flex-row items-center justify-between w-full p-1 grid grid-cols-1 
- "
+      className="relative top-0 z-10 grid flex-row items-center justify-between w-full grid-cols-1 p-4"
     >
       {children}
     </div>
@@ -22,9 +21,7 @@ export const HeaderElement = ({ children }: { children: ReactNode }) => {
 export const AccountElement = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      className="flex flex-row items-center w-full cursor-pointer pointer-events-auto bg-gray-200
-  rounded-xl whitespace-nowrap 
- focus:border-blue-300 focus:border-solid focus:border"
+      className="flex flex-row items-center w-full bg-gray-200 cursor-pointer pointer-events-auto rounded-xl whitespace-nowrap focus:border-blue-300 focus:border-solid focus:border"
     >
       {children}
     </div>
@@ -34,9 +31,7 @@ export const AccountElement = ({ children }: { children: ReactNode }) => {
 export const NetworkCard = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      className="hidden mr-2 font-medium text-yellow-600 bg-yellow-700 
-  bg-opacity-5 rounded-xl p-2
- sm:block"
+      className="hidden p-2 mr-2 font-medium text-yellow-600 bg-yellow-700 bg-opacity-5 rounded-xl sm:block"
     >
       {children}
     </div>

@@ -12,7 +12,6 @@ import {
   AddTransactionPayload,
   CheckedTransactionPayload,
 } from './types'
-import { nanoid } from 'nanoid'
 
 export const stateInitialValue: IWeb3StatusState = {
   application: {
@@ -219,7 +218,7 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
             : state.application.popupList
           ).concat([
             {
-              key: key || nanoid(),
+              key: key,
               show: true,
               content,
               removeAfterMs,

@@ -11,9 +11,9 @@ import {
   Text,
   NetworkIcon,
   Web3StatusConnect,
+  RowBetween,
 } from './index.styles'
 import { Loader } from '../common/Loader'
-import { RowBetween } from '../common/Row'
 import { WalletModal } from './WalletModal'
 import { StatusIcon } from './StatusIcon'
 

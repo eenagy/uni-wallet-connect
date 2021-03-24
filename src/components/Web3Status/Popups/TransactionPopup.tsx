@@ -1,16 +1,16 @@
-import React, { useContext } from 'react'
+import React, { ReactNode } from 'react'
 import { AlertCircle, CheckCircle } from 'react-feather'
-import styled, { ThemeContext } from 'styled-components'
 import { useActiveWeb3React } from '../state-hooks'
-import { TYPE, ExternalLink } from '../../../theme'
+import { ExternalLink } from '../../common/ExternalLink'
 import { getEtherscanLink } from '../utils'
-import { AutoColumn } from '../../common/Column'
-import { AutoRow } from '../../common/Row'
 
-const RowNoFlex = styled(AutoRow)`
-  flex-wrap: nowrap;
-`
+const RowNoFlex = ({children}: {children: ReactNode}) => {
+  return <div className='flex flex-row items-center justify-start w-full'>{children}</div>
+}
 
+const AutoColumn = ({children}: {children: ReactNode}) => {
+  return <div className='grid auto-rows-auto gap-y-2 '>{children}</div>
+}
 export function TransactionPopup({
   hash,
   success,
@@ -22,15 +22,14 @@ export function TransactionPopup({
 }) {
   const { chainId } = useActiveWeb3React()
 
-  const theme = useContext(ThemeContext)
 
   return (
     <RowNoFlex>
       <div style={{ paddingRight: 16 }}>
-        {success ? <CheckCircle color={theme.green1} size={24} /> : <AlertCircle color={theme.red1} size={24} />}
+        {success ? <CheckCircle color="#10B981" size={24} /> : <AlertCircle color="#EF4444" size={24} />}
       </div>
-      <AutoColumn gap="8px">
-        <TYPE.body fontWeight={500}>{summary ?? 'Hash: ' + hash.slice(0, 8) + '...' + hash.slice(58, 65)}</TYPE.body>
+      <AutoColumn>
+        <p className='font-medium overflow-ellipsis'>{summary ?? 'Hash: ' + hash.slice(0, 8) + '...' + hash.slice(58, 65)}</p>
         {chainId && (
           <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>View on Etherscan</ExternalLink>
         )}
