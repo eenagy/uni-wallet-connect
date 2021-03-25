@@ -1,10 +1,12 @@
 import { Identicon } from './Identicon'
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import Image from 'next/image'
 import { ReactNode } from 'react'
 import clsx from 'clsx'
-
+import { CoinbaseIcon } from './common/icons/coinbase'
+import { WalletConnectIcon } from './common/icons/walletconect'
+import { FortmaticIcon } from './common/icons/fortmatic'
+import { PortisIcon } from './common/icons/portis'
 // TODO try out different connectors
 export const MainWalletAction = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
   return (
@@ -29,25 +31,26 @@ export function StatusIcon({ connector, end }: { connector?: AbstractConnector; 
   } else if (connector === walletconnect) {
     return (
       <IconWrapper end={end}>
-        <Image src={'/assets/images/walletConnectIcon.svg'} alt={''} width={16} height={16} />
+        <WalletConnectIcon width="16px" height="16px" />
       </IconWrapper>
     )
   } else if (connector === walletlink) {
     return (
       <IconWrapper end={end}>
-        <Image src={'/assets/images/coinbaseWalletIcon.svg'} alt={''} width={16} height={16} />
+        <CoinbaseIcon width="16px" height="16px" />
       </IconWrapper>
     )
   } else if (connector === fortmatic) {
     return (
       <IconWrapper end={end}>
-        <Image src={'/assets/images/fortmaticIcon.png'} alt={''} width={16} height={16} />
+        <FortmaticIcon width="16px" height="16px" />
       </IconWrapper>
     )
   } else if (connector === portis) {
     return (
       <IconWrapper end={end}>
-        <Image src={'/assets/images/portisIcon.png'} alt={''} width="16px" height="16px" />
+        <PortisIcon width="16px" height="16px" />
+
         {end && (
           <MainWalletAction
             onClick={() => {
@@ -60,5 +63,5 @@ export function StatusIcon({ connector, end }: { connector?: AbstractConnector; 
       </IconWrapper>
     )
   }
-  return null;
+  return null
 }

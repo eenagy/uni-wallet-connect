@@ -1,3 +1,4 @@
+// TODO remove uniswap sdk
 import { CurrencyAmount, JSBI } from '@uniswap/sdk'
 import { useMulticallContract, useSingleContractMultipleData } from './useContract'
 import { useMemo } from 'react'

@@ -38,7 +38,7 @@ export function Options({ connector, tryActivation, setWalletView }: Props) {
                 link={option.href}
                 header={option.name}
                 subheader={null}
-                icon={'/assets/images/' + option.iconName}
+                icon={option.iconName}
               />
             )
           }
@@ -59,7 +59,7 @@ export function Options({ connector, tryActivation, setWalletView }: Props) {
                   header={'Install Metamask'}
                   subheader={option.description}
                   link={'https://metamask.io/'}
-                  icon={'/assets/images/metamask.png'}
+                  icon={'metamask'}
                 />
               )
             } else {
@@ -93,7 +93,7 @@ export function Options({ connector, tryActivation, setWalletView }: Props) {
               link={option.href}
               header={option.name}
               subheader={option.description} //use option.descriptio to bring back multi-line
-              icon={'/assets/images/' + option.iconName}
+              icon={option.iconName}
             />
           )
         )

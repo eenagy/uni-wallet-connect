@@ -1,14 +1,12 @@
 import React from 'react'
 import { ExternalLink } from '../common/ExternalLink'
-import Image from 'next/image'
-import {
-  OptionCardClickable,
-  OptionCardLeft,
-  HeaderText,
-  SubHeader,
-  GreenCircle,
-  IconWrapper,
-} from './Option.syles'
+import { OptionCardClickable, OptionCardLeft, HeaderText, SubHeader, GreenCircle, IconWrapper } from './Option.syles'
+import { MetamaskIcon } from '../common/icons/metamask'
+import { CoinbaseIcon } from '../common/icons/coinbase'
+import { WalletConnectIcon } from '../common/icons/walletconect'
+import { FortmaticIcon } from '../common/icons/fortmatic'
+import { PortisIcon } from '../common/icons/portis'
+import { ArrowRight } from 'react-feather'
 
 interface Props {
   link?: string | null
@@ -21,17 +19,8 @@ interface Props {
   active?: boolean
   id: string
 }
-
-export function Option({
-  link = null,
-  clickable = true,
-  onClick,
-  header,
-  icon,
-  active = false,
-  id,
-  subheader
-}: Props) {
+// TODO icon
+export function Option({ link = null, clickable = true, onClick, header, icon, active = false, id, subheader }: Props) {
   const content = (
     <OptionCardClickable id={id} onClick={onClick} clickable={clickable && !active} active={active}>
       <OptionCardLeft>
@@ -42,7 +31,12 @@ export function Option({
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>
       <IconWrapper>
-        <Image src={icon} alt={'Icon'} width="24px" height="24px" />
+        {icon === 'metamask' && <MetamaskIcon />}
+        {icon === 'arrow-right' && <ArrowRight size="24px" />}
+        {icon === 'coinbase' && <CoinbaseIcon />}
+        {icon === 'wallet-connect' && <WalletConnectIcon />}
+        {icon === 'fortmatic' && <FortmaticIcon />}
+        {icon === 'portis' && <PortisIcon />}
       </IconWrapper>
     </OptionCardClickable>
   )
