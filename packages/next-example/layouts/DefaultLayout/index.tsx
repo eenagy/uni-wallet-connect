@@ -20,7 +20,6 @@ const {
 
 // Example layout
 export function Layout({ children }: { children: JSX.Element }) {
-  console.log(uniwallet)
   return (
     <AppWrapper>
       <Web3StatusProvider>

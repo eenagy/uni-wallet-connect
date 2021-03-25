@@ -237,7 +237,6 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
         }
         case 'TOGGLE_URL_WARNING': {
           state.application.URLWarningVisible = !state.application.URLWarningVisible
-          console.log('TOGGLE_URL_WARNING state', state.application.URLWarningVisible)
           return {...state}
         }
         default:
@@ -290,7 +289,6 @@ export const Web3StatusProvider = ({ children }: { children: ReactNode }) => {
         dispatch({ type: 'ADD_POPUP', payload })
       },
       toggleURLWarning: () => {
-        console.log('toggle')
         dispatch({ type: 'TOGGLE_URL_WARNING' })
       },
     }

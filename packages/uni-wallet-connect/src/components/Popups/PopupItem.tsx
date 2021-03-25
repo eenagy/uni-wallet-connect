@@ -22,7 +22,6 @@ export const Popup = ({ children }: { children: ReactNode }) => {
 }
 
 export const Fader = ({ style: {width = '100%'}, ...rest }: { style: React.CSSProperties }) => {
-  console.log(width)
   return <div className="absolute left-0 mt-4 bg-gray-200 b-0" style={{ height: '2px', width }} {...rest}/>
 }
 const AnimatedFader = animated(Fader)
