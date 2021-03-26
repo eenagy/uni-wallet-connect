@@ -4,6 +4,7 @@ import useDebounce from '../hooks/useDebounce'
 import useIsWindowVisible from '../hooks/useIsWindowVisible'
 import { Web3StatusActions } from '../index.provider'
 
+// Updates blocknumber
 export function ApplicationUpdater(): null {
   const { library, chainId } = useActiveWeb3React()
   const {updateBlockNumber} = useContext(Web3StatusActions)
