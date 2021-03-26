@@ -7,7 +7,7 @@ NextJS is supported by default.
 
 ## How to use
 
-See (next example)[./packages/next-example] for complete details.
+See [next example](./packages/next-example) for complete details.
 
 ```bash
 npm install uni-wallet-connect
