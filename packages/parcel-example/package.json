@@ -1,0 +1,32 @@
+{
+  "name": "parcel-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+    "@ethersproject/experimental": ">=5.0.10",
+    "@web3-react/core": ">=6.1.9",
+    "@web3-react/fortmatic-connector": ">=6.1.6",
+    "@web3-react/injected-connector": ">=6.0.7",
+    "@web3-react/portis-connector": ">=6.1.9",
+    "@web3-react/walletconnect-connector": ">=6.1.9",
+    "@web3-react/walletlink-connector": ">=6.1.9",
+    "ethers": ">=5.0.32",
+    "fortmatic": ">=2.2.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.8.4",
+    "parcel": "1.12.3",
+    "typescript": "^3.4.5"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.13.8"
+  }
+}
