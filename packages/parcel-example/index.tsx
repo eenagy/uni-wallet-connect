@@ -1,9 +1,10 @@
-import * as ReactDOM from 'react-dom';
+import * as ReactDOM from "react-dom";
 import * as React from "react";
 import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core";
 import * as uniwallet from "../uni-wallet-connect";
+import { Layout } from "./layouts/DefaultLayout";
 import "uni-wallet-connect/dist/uni-wallet-connect.cjs.production.min.css";
-
+import "@reach/dialog/styles.css";
 
 class ErrorBoundaryWeb3ProviderNetwork extends React.Component<
   {},
@@ -40,13 +41,11 @@ export function App() {
     <React.StrictMode>
       <Web3ReactProvider getLibrary={uniwallet.getLibrary}>
         <ErrorBoundaryWeb3ProviderNetwork>
-          hello world
+          <Layout> hello world </Layout>
         </ErrorBoundaryWeb3ProviderNetwork>
       </Web3ReactProvider>
     </React.StrictMode>
   );
 }
 
-
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
