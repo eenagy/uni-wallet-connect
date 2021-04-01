@@ -1,3 +1,4 @@
+import React from 'react';
 import { Option } from './Option'
 import { isMobile } from 'react-device-detect'
 import { injected, portis } from '../../connectors'

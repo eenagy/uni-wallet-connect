@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function WalletConnectIcon({ width = '24px', height = '24px' }) {
   return (
     <svg

@@ -1,6 +1,8 @@
 import { Loader } from '../common/Loader'
 import { ReactNode } from 'react'
 import clsx from 'clsx'
+import React from 'react';
+
 
 export const PendingSection = ({ children }: { children: ReactNode }) => {
   return <div className="flex flex-col items-center justify-center w-full">{children}</div>

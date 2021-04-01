@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function FortmaticIcon({ width = '24px', height = '24px' }) {
   return (
     <svg width={width} height={height} viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">

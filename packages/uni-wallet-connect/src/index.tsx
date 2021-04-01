@@ -1,8 +1,11 @@
 import React from 'react'
-import { NETWORK_LABELS } from 'uni-wallet-connect/src/constants'
-import { useActiveWeb3React, useETHBalances } from 'uni-wallet-connect/src/state-hooks'
+import { NETWORK_LABELS } from './constants'
+import { useActiveWeb3React, useETHBalances } from './state-hooks'
 import { Web3StatusAccount } from './components/Web3StatusAccount'
 import { HeaderElement, AccountElement, NetworkCard, BalanceText } from './index.styles'
+// Import for for tsdx able to transform it
+import './styles/global.css'
+// import "@reach/dialog/styles.css";
 
 export * from './index.manager'
 export * from './index.provider'

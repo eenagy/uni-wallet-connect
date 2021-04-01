@@ -67,8 +67,6 @@ export function Modal({ isOpen, onDismiss, minHeight = false, maxHeight = 90, in
                     }
                   : {})}
                 aria-label="dialog content"
-                minHeight={minHeight}
-                maxHeight={maxHeight}
                 mobile={isMobile}
                 as="div"
                 className={clsx(isMobile && 'mobile', 'animated-dialog-content')}
