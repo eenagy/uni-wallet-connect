@@ -66,7 +66,7 @@ export default function App({ Component, pageProps }) {
 
 **pages/index.js**
 
-```
+``` javascript
 import React from "react";
 import  * as uniwallet from "uni-wallet-connect";
 import {
